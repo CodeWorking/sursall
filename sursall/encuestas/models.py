@@ -1,6 +1,8 @@
 from django.db import models
 
 
+CHOICES_TIPO_PREGUNTA = ((0,"Una pregunta"),)
+
 class Persona(models.Model):
     edad = models.CharField(max_length=3)
     nombre = models.CharField(max_length=50)
@@ -10,28 +12,27 @@ class Persona(models.Model):
 
 class Prueba(models.Model):
     nombre = models.CharField(max_length=50)
-
+    
 
 class Modulo(models.Model):  
     nombre = models.CharField(max_length=50)
-
-
+    prueba = models.ForeignKey(Prueba)
+    
 class Seccion(models.Model):
-    instruccion = models.CharField(max_length=50)
-
+    instruccion = models.TextField()
+    modulo = models.ForeignKey(Modulo)
 
 class Pregunta(models.Model):
     descripcion_text = models.TextField()
-    descripcion_imag = models.ImageField(upload_to='imagen')
-    tiempo = models.IntegerField()
-    tipo_pregunta = models.CharField(max_length=20)
+    #descripcion_imag = models.ImageField(upload_to='imagen')
+    tiempo = models.IntegerField(null=True, blank=True)
+    tipo_pregunta = models.IntegerField(choices=CHOICES_TIPO_PREGUNTA)
+    seccion = models.ForeignKey(Seccion)
 
 
 class PruebaContestada(models.Model):
-    id_prieba_contestada = models.CharField(unique=True)  
-    id_prueba = models.ForeignKey(Prueba)
-    fecha = models.DateField() 
-    hora = models.DateTimeField()
+    prueba = models.ForeignKey(Prueba)
+    fecha = models.DateTimeField()
 
 
 class Respuesta(models.Model):
@@ -42,6 +43,6 @@ class Respuesta(models.Model):
 
 
 class Seleccion(models.Model):
-    id_prueba_contestada = models.ForeignKey(Prueba_contestada)
+    id_prueba_contestada = models.ForeignKey(PruebaContestada)
     id_respuesta = models.ForeignKey(Respuesta)
 
