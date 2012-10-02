@@ -38,11 +38,11 @@ class PruebaContestada(models.Model):
 class Respuesta(models.Model):
     descripcion = models.TextField()    
     O_correcta = models.IntegerField()
-    orden = models.IntegerField()
+    orden = models.IntegerField ()
     puntaje = models.IntegerField()
 
 
 class Seleccion(models.Model):
-    id_prueba_contestada = models.ForeignKey(PruebaContestada)
-    id_respuesta = models.ForeignKey(Respuesta)
+    prueba_contestada = models.ForeignKey(PruebaContestada)
+    
 
