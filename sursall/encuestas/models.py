@@ -1,6 +1,6 @@
 from django.db import models
 
-CHOICES_TIPO_PREGUNTA = ((0,"Una pregunta"),)
+CHOICES_TIPO_PREGUNTA = ((0,"Una pregunta"),(1, "Segunda Pregunta"))
 
 class Persona(models.Model):
     edad = models.CharField(max_length=3)
@@ -9,7 +9,7 @@ class Persona(models.Model):
     usuario = models.ForeignKey("auth.User")
 
     def __unicode__(self):
-        return "%s" % (self.edad, self.nombre, self.apellido, self.usuario)
+        return "%s" % (self.usuario)
 
 class Prueba(models.Model):
     nombre = models.CharField(max_length=50)
@@ -29,13 +29,15 @@ class Modulo(models.Model):
 
     
 class Seccion(models.Model):
+    nombre = models.CharField(max_length=30)
     instruccion = models.TextField()
     modulo = models.ForeignKey(Modulo)
     
     def __unicode__(self):
-        return "%s la %s" % (self.instruccion, self.modulo)
+        return "%s en %s" % (self.nombre, self.modulo)
 
 class Pregunta(models.Model):
+    orden = models.IntegerField ()
     descripcion_text = models.TextField()
     #descripcion_imag = models.ImageField(upload_to='imagen')
     tiempo = models.IntegerField(null=True, blank=True)
@@ -43,7 +45,7 @@ class Pregunta(models.Model):
     seccion = models.ForeignKey(Seccion)
 
     def __unicode__(self):
-        return "%s la %s" % (self.descripcion, self.modulo, self.tiempo, self.tipo_pregunta, self.seccion)
+        return "%s la %s" % (self.orden, self.seccion)
 
 class PruebaContestada(models.Model):
     prueba = models.ForeignKey(Prueba)
@@ -53,13 +55,14 @@ class PruebaContestada(models.Model):
         return "%s la %s" % (self.prueba, self.fecha)
 
 class Respuesta(models.Model):
+    pregunta = models.ForeignKey(Pregunta)
     descripcion = models.TextField()    
     O_correcta = models.IntegerField()
     orden = models.IntegerField ()
     puntaje = models.IntegerField()
 
     def __unicode__(self):
-        return "%s la %s" % (self.descripcion, self.O_correcta. self.orden, self.puntaje)
+        return "%s en %s" % (self.orden, self.pregunta)
 
 class Seleccion(models.Model):
     prueba_contestada = models.ForeignKey(PruebaContestada)
