@@ -8,18 +8,32 @@ class Persona(models.Model):
     apellido = models.CharField(max_length=50)
     usuario = models.ForeignKey("auth.User")
 
+    def __unicode__(self):
+        return "%s" % (self.edad, self.nombre, self.apellido, self.usuario)
 
 class Prueba(models.Model):
     nombre = models.CharField(max_length=50)
     
+    def __unicode__(self):
+        return "%s" % (self.nombre)
+
+
 
 class Modulo(models.Model):  
     nombre = models.CharField(max_length=50)
     prueba = models.ForeignKey(Prueba)
     
+    def __unicode__(self):
+        return "%s en %s" % (self.nombre, self.prueba)
+
+
+    
 class Seccion(models.Model):
     instruccion = models.TextField()
     modulo = models.ForeignKey(Modulo)
+    
+    def __unicode__(self):
+        return "%s la %s" % (self.instruccion, self.modulo)
 
 class Pregunta(models.Model):
     descripcion_text = models.TextField()
@@ -28,11 +42,15 @@ class Pregunta(models.Model):
     tipo_pregunta = models.IntegerField(choices=CHOICES_TIPO_PREGUNTA)
     seccion = models.ForeignKey(Seccion)
 
+    def __unicode__(self):
+        return "%s la %s" % (self.descripcion, self.modulo, self.tiempo, self.tipo_pregunta, self.seccion)
 
 class PruebaContestada(models.Model):
     prueba = models.ForeignKey(Prueba)
     fecha = models.DateTimeField()
 
+    def __unicode__(self):
+        return "%s la %s" % (self.prueba, self.fecha)
 
 class Respuesta(models.Model):
     descripcion = models.TextField()    
@@ -40,8 +58,12 @@ class Respuesta(models.Model):
     orden = models.IntegerField ()
     puntaje = models.IntegerField()
 
+    def __unicode__(self):
+        return "%s la %s" % (self.descripcion, self.O_correcta. self.orden, self.puntaje)
 
 class Seleccion(models.Model):
     prueba_contestada = models.ForeignKey(PruebaContestada)
     respuesta = models.ForeignKey(Respuesta)
 
+    def __unicode__(self):
+        return "%s la %s" % (self.prueba_contestada, self.respuesta)
