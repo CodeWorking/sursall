@@ -1,6 +1,5 @@
 from django.db import models
 
-
 CHOICES_TIPO_PREGUNTA = ((0,"Una pregunta"),)
 
 class Persona(models.Model):
@@ -44,5 +43,5 @@ class Respuesta(models.Model):
 
 class Seleccion(models.Model):
     prueba_contestada = models.ForeignKey(PruebaContestada)
-    
+    respuesta = models.ForeignKey(Respuesta)
 
