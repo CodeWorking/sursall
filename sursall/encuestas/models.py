@@ -37,7 +37,7 @@ class Seccion(models.Model):
         return "%s en %s" % (self.nombre, self.modulo)
 
 class Pregunta(models.Model):
-    orden = models.IntegerField ()
+    orden = models.IntegerField()
     descripcion_text = models.TextField()
     #descripcion_imag = models.ImageField(upload_to='imagen')
     tiempo = models.IntegerField(null=True, blank=True)
@@ -57,7 +57,6 @@ class PruebaContestada(models.Model):
 class Respuesta(models.Model):
     pregunta = models.ForeignKey(Pregunta)
     descripcion = models.TextField()    
-    O_correcta = models.IntegerField()
     orden = models.IntegerField ()
     puntaje = models.IntegerField()
 
