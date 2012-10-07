@@ -1,100 +1,34 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!--
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
+{% extends "base.html" %}
 
-Name       : FootBall   
-Description: A two-column, fixed-width design with simple color scheme.
-Version    : 1.0
-Released   : 20120604
--->
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta name="keywords" content="" />
-<meta name="description" content="" />
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>Football by FCT</title>
-<link href="http://fonts.googleapis.com/css?family=Abel|Arvo" rel="stylesheet" type="text/css" />
-<link href="{{ STATIC_URL }}css/style.css" rel="stylesheet" type="text/css" media="screen" />
-<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.dropotron-1.0.js"></script>
-</head>
-<body>
-<div id="wrapper">
-	<div id="header-wrapper">
-		<div id="header">
-			<div id="logo">
-				<h1><a href="#">FootBall</a></h1>
-				<p>template design by <a href="http://www.freecsstemplates.org/">FCT</a></p>
-			</div>
-		</div>
-	</div>
-	<!-- end #header -->
-	<div id="menu-wrapper">
-		<ul id="menu">
-			<li class="current_page_item"><a href="#"><span>Homepage</span></a></li>
-			<li><span>Blog</span>
-				<ul>
-					<li class="first"> <a href="index">Maecenas luctus lectus</a> </li>
-					<li> <a href="search">Integer gravida</a> </li>
-					<li class="last"> <a href="about">Ut nonummy rutrum</a> </li>
-				</ul>
-			</li>
-			<li><a href="#"><span>Photos</span></a></li>
-			<li><a href="#"><span>About</span></a></li>
-			<li><span>Links</span>
-				<ul>
-					<li class="first"> <a href="index">Maecenas luctus lectus</a> </li>
-					<li> <a href="search">Integer gravida</a> </li>
-					<li class="last"> <a href="about">Ut nonummy rutrum</a> </li>
-				</ul>
-			</li>
-			<li><a href="#"><span>Contact</span></a></li>
-		</ul>
-		<script type="text/javascript">
-			$('#menu').dropotron();
-		</script> 
-	</div>
-	<!-- end #menu -->
-	<div id="splash"><img src="{{ STATIC_URL }}images/pics01.jpg" width="980" height="300" alt="" /></div>
-	<div id="three-column">
-		<div id="column1">
-			<p><img src="{{ STATIC_URL }}images/pics02.jpg" width="300" height="200" alt="" /></p>
-			<p>Sed lacus. Donec lectus. Nullam pretium nibh ut turpis. Nam bibendum. In nulla tortor, elementum ipsum. Proin imperdiet est. Phasellus dapibus semper urna. Pellentesque ornare, orci in felis. </p>
-		</div>
-		<div id="column2">
-			<p><img src="{{ STATIC_URL }}images/pics03.jpg" width="300" height="200" alt="" /></p>
-			<p>Sed lacus. Donec lectus. Nullam pretium nibh ut turpis. Nam bibendum. In nulla tortor, elementum ipsum. Proin imperdiet est. Phasellus dapibus semper urna. Pellentesque ornare, orci in felis. </p>
-		</div>
-		<div id="column3">
-			<p><img src="{{ STATIC_URL }}images/pics04.jpg" width="300" height="200" alt="" /></p>
-			<p>Sed lacus. Donec lectus. Nullam pretium nibh ut turpis. Nam bibendum. In nulla tortor, elementum ipsum. Proin imperdiet est. Phasellus dapibus semper urna. Pellentesque ornare, orci in felis. </p>
-		</div>
-	</div>
-	<div id="page">
-		<div class="post">
-			<h2 class="title"><a href="#">Welcome to FootBall</a></h2>
-			<p class="meta">Posted by <a href="#">Someone</a> on June 04, 2012
-				&nbsp;&bull;&nbsp; <a href="#" class="comments">Comments (64)</a> &nbsp;&bull;&nbsp; <a href="#" class="permalink">Full article</a></p>
-			<div class="entry">
-				<p>This is <strong>FootBall</strong>, a free, fully standards-compliant CSS template designed by <a href="http://www.freecsstemplates.org">FCT</a>.  The picture in this template is from <a href="http://fotogrph.com/"><strong>FotoGrph</strong></a>.  Dropdown menu is powered by <a href="http://nodethirtythree.com/"><strong>Dropotron</strong></a>. This free template is released under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attributions 3.0</a> license, so you’re pretty much free to do whatever you want with it (even use it commercially) provided you keep the links in the footer intact. Aside from that, have fun with it :)</p>
-				<p>Sed lacus. Donec lectus. Nullam pretium nibh ut turpis. Nam bibendum. In nulla tortor, elementum ipsum. Proin imperdiet est. Phasellus dapibus semper urna. Pellentesque ornare, orci in felis. Donec ut ante. In id eros. Suspendisse lacus turpis, cursus egestas at sem.</p>
-			</div>
-		</div>
-		<div class="post">
-			<h2 class="title"><a href="#">Lorem ipsum sed aliquam</a></h2>
-			<p class="meta">Posted by <a href="#">Someone</a> on June 01, 2012
-				&nbsp;&bull;&nbsp; <a href="#" class="comments">Comments (64)</a> &nbsp;&bull;&nbsp; <a href="#" class="permalink">Full article</a></p>
-			<div class="entry">
-				<p>Sed lacus. Donec lectus. Nullam pretium nibh ut turpis. Nam bibendum. In nulla tortor, elementum vel, tempor at, varius non, purus. Mauris vitae nisl nec metus placerat consectetuer. Donec ipsum. Proin imperdiet est. Phasellus <a href="#">dapibus semper urna</a>. Pellentesque ornare, consectetuer nisl felis ac diam. Sed lacus. Donec lectus. Nullam pretium nibh ut turpis. Nam bibendum. Mauris vitae nisl nec metus placerat consectetuer. </p>
-			</div>
-		</div>
-	</div>
-</div>
-<div id="footer">
-	<p>2012. Sitename.com. All rights reserved. Design by <a href="http://www.freecsstemplates.org/">FCT</a>. Photos by <a href="http://fotogrph.com/">fotogrph</a>.</p>
-</div>
-<!-- end #footer -->
-</body>
-</html>
+{% block splash_adentro %}
+{% endblock splash_adentro %}
+
+{% block wrapper %}
+{% endblock wrapper %}
+
+{% block unacolumna %}
+{% endblock unacolumna %}
+
+{% block doscolumna %}
+{% endblock doscolumna %}
+
+{% block trescolumna %}
+{% endblock trescolumna %}
+
+{% block contenidouno %}
+{% endblock contenidouno %}
+
+{% block contenidodos %}
+{% endblock contenidodos %}
+
+{% block titulo %}
+{% endblock titulo %}
+
+{% block principal %}
+{% endblock principal %}
+
+{% block marca%}
+{% endblock marca%}
+
+{% block menu%}
+{% endblock menu%}
