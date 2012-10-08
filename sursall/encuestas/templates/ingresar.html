@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block splash_adentro %}
+{% endblock splash_adentro %}
+
+{% block wrapper %}
+<p>Ingresa al sistema</p>
+{% endblock wrapper %}
+
+{% block unacolumna %}
+
+{% endblock unacolumna %}
+
+{% block doscolumna %}
+{% endblock doscolumna %}
+
+{% block trescolumna %}
+{% endblock trescolumna %}
+
+{% block contenidouno %}
+	<form id='formulario' method='post' action=''>{% csrf_token %}
+		<table>{{formulario}}</table>
+		<p><input type='submit' value='Ingresar'/></p>
+	</form>
+{% endblock contenidouno %}
+
+{% block contenidodos %}
+
+{% endblock contenidodos %}
+
+{% block titulo %}
+<title>Ingresa al sistema</title>
+{% endblock titulo %}
+
+{% block titulopag %}
+	<h1><a href="#">Ingresa</a></h1>
+{% endblock titulopag %}	
+
+{% block marca%}
+{% endblock marca%}
+
+{% block menu%}
+{% endblock menu%}
