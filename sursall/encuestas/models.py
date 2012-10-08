@@ -69,3 +69,4 @@ class Seleccion(models.Model):
 
     def __unicode__(self):
         return "%s la %s" % (self.prueba_contestada, self.respuesta)
+

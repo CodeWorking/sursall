@@ -4,6 +4,6 @@ from django.views.generic.simple import direct_to_template
 
 
 urlpatterns = patterns('encuestas.views',
-                       url(r'^$', 'home'),
+                       url(r'^$', 'autenticacion'),
                        )
 
