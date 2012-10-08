@@ -17,30 +17,52 @@
 {% endblock trescolumna %}
 
 {% block contenidouno %}
-	<div id="page">
-		
-		<div class="post">
-			<p><label >USUARIO: </label><input type="text" value="" id="usuario"/></p>
-			<p><label>CONTRASEÑA: </label><input type="text" value="" id="contrasena"/></p> 
-			<p><button href = "google.com"> ACEPTAR </button></p>	
+<div id="page">
+	<div class="post">
+		<table >
+			<tr>
+				<td rowspan="3" style="width: 410px"><img src="{{ STATIC_URL }}images/itc1.png" width="300" height="200" /></td>
+				<td style="width: 120px">
+				<p>
+					<label >USUARIO:</label>
+				</p></td>
+				<td style="width: 149px">
+				<input type="text" value="" id="usuario"/>
+				</td>
+			</tr>
+			<tr>
+				<td style="width: 120px"><label>CONTRASEÑA:</label></td>
+				<td style="width: 149px">
+				<input type="text" value="" id="contrasena"/>
+				</td>
+			</tr>
+			<tr>
+				<td style="width: 120px" align="center">
+				<p>
+					<button type="submit" value="home">
+						ACEPTAR
+					</button>
+				</p></td>
+			</tr>
+		</table>
+	</div>
 	<div class="entry">
-				<p>Pruebas Vocacionales</p>
-				<p>Escuela Tecnologica Instituto Tecnico Central</p>
-			</div>
-		</div>
+		<p>
+			La Escuela Tecnologica Instituto Tecnico Central apostandole al avance tecnologico desde el programa de tecnologia en sistemas ha desarrollado este software que permite identificar las capacidaddes de los estudiantes y orientarlos en su mejor eleccion en la carrera tecnica que llevaran a cabo.
+		</p>
+	</div>
+</div>
 {% endblock contenidouno %}
 
 {% block contenidodos %}
-			
+
 {% endblock contenidodos %}
 
-{% block titulo %}
-<title>VocacionalSoft</title>
+{% block titulo %} <title>VocacionalSoft</title>
 {% endblock titulo %}
 
-{% block titulopag %}
-	<h1><a href="#">VocacionalSoft</a></h1>
-{% endblock titulopag %}	
+{% block titulopag %} <h1><a href="#">VocacionalSoft</a></h1>
+{% endblock titulopag %}
 
 {% block marca%}
 {% endblock marca%}
