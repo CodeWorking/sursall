@@ -11,10 +11,6 @@ def home(request):
     
     return render_to_response('home.html', {}, context_instance=RequestContext(request))
 
-def autenticacion(request):
-    
-    return render_to_response('autenticacion.html', {}, context_instance=RequestContext(request))
-
 def nuevousuario(request):
     if request.method=='POST':
         formulario = UserCreationForm(request.POST)

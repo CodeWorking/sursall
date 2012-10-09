@@ -148,7 +148,4 @@ LOGGING = {
     }
 
 }
-AUTHENTICATION_BACKENDS = (
-    'sursall.sursall.encuestas.backends.EmailAuthBackEnd',
-    'django.contrib.auth.backends.ModelBackend',
-)
+
