@@ -7,9 +7,9 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 
 
-def home(request):
+def bienvenido(request):
     
-    return render_to_response('home.html', {}, context_instance=RequestContext(request))
+    return render_to_response('bienvenido.html', {}, context_instance=RequestContext(request))
 
 def nuevousuario(request):
     if request.method=='POST':
@@ -23,8 +23,8 @@ def nuevousuario(request):
 
 
 def ingresar(request):
-    if not request.user.is_anonymous():
-        return HttpResponseRedirect('/privado')
+    #if not request.user.is_anonymous():
+        #return HttpResponseRedirect('/ingresar')
     if request.method == 'POST':
         formulario = AuthenticationForm(request.POST)
         if formulario.is_valid:
@@ -34,7 +34,7 @@ def ingresar(request):
             if acceso is not None:
                 if acceso.is_active:
                     login(request, acceso)
-                    return HttpResponseRedirect('/privado')
+                    return HttpResponseRedirect('/bienvenido')
                 else:
                     return render_to_response('noactivo.html', context_instance=RequestContext(request))
             else:
@@ -42,4 +42,3 @@ def ingresar(request):
     else:
         formulario = AuthenticationForm()
     return render_to_response('ingresar.html',{'formulario':formulario}, context_instance=RequestContext(request))
-
