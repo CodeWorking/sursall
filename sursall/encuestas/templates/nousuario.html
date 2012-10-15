@@ -1,10 +1,22 @@
 {% extends "base.html" %}
 
+{% block titulo %} <title>VocacionalSoft</title>
+{% endblock titulo %}
+
+{% block titulopag %} <h1>VocacionalSoft</h1>
+{% endblock titulopag %}
+
+
 {% block splash_adentro %}
+<div class="entry">
+		<center><h4><p>La combinacion Usuario Y Contraseña Ingresado no corresponden a un usario del sistema por favor <a href="" />intente </a> de nuevo.</p></h4></center>
+		<br/><br/>
+		<center><img src="{{ STATIC_URL }}images/Error Ingreso Usuario.png" width="190" height="150" /></center>
+</div>
 {% endblock splash_adentro %}
 
 {% block wrapper %}
-<p>Error de acceso</p>
+	<p>Error de Acceso</p>
 {% endblock wrapper %}
 
 {% block unacolumna %}
@@ -18,23 +30,23 @@
 {% endblock trescolumna %}
 
 {% block contenidouno %}
-<p>El usuario y la contraseña no coinciden o no existen.</p>
 {% endblock contenidouno %}
 
 {% block contenidodos %}
 
 {% endblock contenidodos %}
-
-{% block titulo %}
-<title>Error de acceso</title>
-{% endblock titulo %}
-
-{% block titulopag %}
-	<h1><a href="#">Error de acceso</a></h1>
-{% endblock titulopag %}	
-
 {% block marca%}
 {% endblock marca%}
 
 {% block menu%}
+	<div id="menu-wrapper">
+		<ul id="menu">
+			<li> <a href=""><span>Inicio</span></a></li>
+			<li><a href="#"><span>VocacionalSOft</span></a></li>
+			<li><a href="#"><span>Contactenos</span></a></li>
+		</ul>
+		<script type="text/javascript">
+			$('#menu').dropotron();
+		</script> 
+	</div>
 {% endblock menu%}

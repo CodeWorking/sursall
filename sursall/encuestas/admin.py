@@ -10,3 +10,6 @@ admin.site.register(PruebaContestada)
 admin.site.register(Respuesta)
 admin.site.register(Seleccion)
 
+class AuthorAdmin(admin.ModelAdmin):
+    date_hierarchy = 'pub_date'
+

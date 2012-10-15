@@ -11,6 +11,10 @@ def bienvenido(request):
     
     return render_to_response('bienvenido.html', {}, context_instance=RequestContext(request))
 
+def base(request):
+    
+    return render_to_response('base.html', {}, context_instance=RequestContext(request))
+
 def nuevousuario(request):
     if request.method=='POST':
         formulario = UserCreationForm(request.POST)
