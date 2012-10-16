@@ -2,6 +2,9 @@ from django.db import models
 
 CHOICES_TIPO_PREGUNTA = ((0,"Una pregunta"),(1, "Segunda Pregunta"))
 
+Contacto = models.CharField(max_length=70)
+Comentario = models.CharField(max_length=70)
+
 class Persona(models.Model):
     edad = models.CharField(max_length=3)
     nombre = models.CharField(max_length=50)

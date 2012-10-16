@@ -1,16 +1,28 @@
 {% extends "base.html" %}
 
 {% block splash_adentro %}
+
 {% endblock splash_adentro %}
 
-{% block wrapper %} <p>Bienvenido</p>
+{% block wrapper %}
+<p>
+	Contactenos
+</p>
 {% endblock wrapper %}
 
 {% block unacolumna %}
-
+<div id="column1">
+	<img src="{{ STATIC_URL }}images/Contactenos.png" width="250" height="300" alt=""/>
+</div>
 {% endblock unacolumna %}
 
 {% block doscolumna %}
+<form id= 'formulario' method = 'post' action= ''>{% csrf_token %}
+	{{formulario.as_p}}
+	<p>
+		<input type = 'submit' value = 'Confirmar' />
+	</p>
+</form>
 {% endblock doscolumna %}
 
 {% block trescolumna %}
@@ -20,6 +32,7 @@
 {% endblock contenidouno %}
 
 {% block contenidodos %}
+
 {% endblock contenidodos %}
 
 {% block titulo %} <title>VocacionalSoft</title>

@@ -5,6 +5,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+from django.core.mail import EmailMessage
+from models import Contacto, Comentario
+from django.contrib.auth.models import User
+
+
 
 
 def bienvenido(request):
@@ -15,15 +20,19 @@ def base(request):
     
     return render_to_response('base.html', {}, context_instance=RequestContext(request))
 
+def contactenos(request):
+    
+    return render_to_response('contactenos.html', {}, context_instance=RequestContext(request))
+
 def nuevousuario(request):
-    if request.method=='POST':
+    if request.method == 'POST':
         formulario = UserCreationForm(request.POST)
         if formulario.is_valid:
             formulario.save()
             return HttpResponseRedirect('/')
     else:
         formulario = UserCreationForm()
-    return render_to_response('nuevousuario.html',{'formulario':formulario}, context_instance=RequestContext(request))
+    return render_to_response('nuevousuario.html', {'formulario':formulario}, context_instance=RequestContext(request))
 
 
 def ingresar(request):
@@ -45,4 +54,30 @@ def ingresar(request):
                 return render_to_response('nousuario.html', context_instance=RequestContext(request))
     else:
         formulario = AuthenticationForm()
-    return render_to_response('ingresar.html',{'formulario':formulario}, context_instance=RequestContext(request))
+    return render_to_response('ingresar.html', {'formulario':formulario}, context_instance=RequestContext(request))
+
+def contacto(request):
+    if request.method == 'POST':
+        formulario = ContactoForm(request.POST)
+        if formulario.is_valid():
+            titulo = 'Mensaje desde Diego'
+            contenido = formulario.cleaned_data ['mensaje'] + "\n"
+            contenido += 'Comunicarse a:' + formulario.cleaned_data ['correo']
+            correo = EmailMessage(titulo, contenido, to=['alejandrorodriguezperalta@gmail.com'])
+            correo.send()
+            return HttpResponseRedirect('/')
+    else:
+         formulario = ContactoForm()
+    return render_to_response('Contactenos.html', {'formulario':formulario}, context_instance=RequestContext(request))
+                
+ 
+
+
+
+
+
+
+
+
+
+

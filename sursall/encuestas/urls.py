@@ -7,4 +7,6 @@ urlpatterns = patterns('encuestas.views',
                        url(r'^usuario/nuevo$','nuevousuario'),
                        url(r'^bienvenido$','bienvenido'),
                        url(r'^base$','base'),
-                       )
+                       #url(r'^contactenos$','contactenos'),
+                       url(r'^contactenos/$','contacto'),                       
+                       )        
