@@ -4,6 +4,9 @@
 {% endblock splash_adentro %}
 
 {% block wrapper %}
+<p>
+	LOGIN
+</p>
 {% endblock wrapper %}
 
 {% block unacolumna %}
@@ -65,4 +68,21 @@
 {% endblock marca%}
 
 {% block menu%}
+<div id="menu-wrapper">
+	<ul id="menu">
+		<li>
+			<a href=""><span>Inicio</span></a>
+		</li>
+		<li>
+			<a href="nuevousuario"><span>VocacionalSOft</span></a>
+		</li>
+		<li>
+			<a href="contacto"><span>Contactenos</span></a>
+		</li>
+	</ul>
+	<script type="text/javascript">
+		$('#menu').dropotron();
+
+	</script>
+</div>
 {% endblock menu%}

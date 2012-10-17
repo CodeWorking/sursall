@@ -4,36 +4,39 @@
 {% endblock splash_adentro %}
 
 {% block wrapper %}
-<p>Registra un nuevo usuario</p>
+<p>Nuevo Usuario</p>
 {% endblock wrapper %}
 
 {% block unacolumna %}
-
+<div id="prim">
+	<form id='formulario' method='post' action=''>{% csrf_token %}
+		<table>{{formulario}}</table>
+		<p><input type='submit' value='Registrar'/></p>
+	</form>
+</div>
 {% endblock unacolumna %}
 
 {% block doscolumna %}
+<div id="seg">
+	<img src="{{ STATIC_URL }}images/Nuevo Usuario.gif" width="190" height="150" />
+</div>
 {% endblock doscolumna %}
 
 {% block trescolumna %}
 {% endblock trescolumna %}
 
 {% block contenidouno %}
-	<form id='formulario' method='post' action=''>{% csrf_token %}
-		<table>{{formulario}}</table>
-		<p><input type='submit' value='Registrar'/></p>
-	</form>
 {% endblock contenidouno %}
 
 {% block contenidodos %}
-
 {% endblock contenidodos %}
 
 {% block titulo %}
-<title>Nuevo  Usuario</title>
+<title>Nuevo Usuario</title>
 {% endblock titulo %}
 
 {% block titulopag %}
-	<h1><a href="#">Nuevo Usuario</a></h1>
+	<h1>VocacionalSoft</h1>
 {% endblock titulopag %}	
 
 {% block marca%}

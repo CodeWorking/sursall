@@ -20,10 +20,6 @@ def base(request):
     
     return render_to_response('base.html', {}, context_instance=RequestContext(request))
 
-def contactenos(request):
-    
-    return render_to_response('contactenos.html', {}, context_instance=RequestContext(request))
-
 def nuevousuario(request):
     if request.method == 'POST':
         formulario = UserCreationForm(request.POST)
