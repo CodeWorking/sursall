@@ -1,6 +1,7 @@
 from django.db import models
 
 CHOICES_TIPO_PREGUNTA = ((0,"Una pregunta"),(1, "Segunda Pregunta"))
+CHOICES_TIPO_USUARIO = ((0,"Psicologo"),(1, "Estudiante"))
 
 Contacto = models.CharField(max_length=70)
 Comentario = models.CharField(max_length=70)
@@ -9,9 +10,11 @@ class Persona(models.Model):
     edad = models.CharField(max_length=3)
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
-    usuario = models.ForeignKey("auth.User")
+    tipo_usuario = models.IntegerField(choices=CHOICES_TIPO_USUARIO)
+    usuario = models.OneToOneField("auth.User")
 
     def __unicode__(self):
+        
         return "%s" % (self.usuario)
 
 class Prueba(models.Model):

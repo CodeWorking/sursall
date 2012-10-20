@@ -17,12 +17,20 @@
 {% endblock unacolumna %}
 
 {% block doscolumna %}
+{% if formulario %}
 <form id= 'formulario' method = 'post' action= ''>{% csrf_token %}
-	{{formulario}}
-	<p>
-		<input type = 'submit' value = 'Enviar' />
-	</p>
+<table>
+	
+	{{ formulario }}
+	
+	
+</table>
+
+	<input type = 'submit' value = 'Enviar' />
 </form>
+{% else %}
+<p>{{ mensaje }}</p>
+{% endif %}
 {% endblock doscolumna %}
 
 {% block trescolumna %}

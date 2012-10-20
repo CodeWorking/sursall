@@ -29,10 +29,9 @@
 			<tr>
 				<td style="width: 120px" align="center">
 				<p>
-					<form id='formulario' method='post' action=''>
-						{% csrf_token %}
+					<form id='formulario' method='post' action=''>{% csrf_token %}
 						<table>
-							{{formulario}}
+							{{ formulario }}
 						</table>
 						<p>
 							<input type='submit' value='Entrar'/>

@@ -155,3 +155,4 @@ EMAIL_HOST_USER = 'alejandrorodriguezperalta@gmail.com'
 EMAIL_HOST_PASSWORD = 'dianita0318'
 EMAIL_PORT = '587'
 
+LOGIN_URL = "/"
