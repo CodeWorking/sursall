@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
 {% block splash_adentro %}
+<div id="seg">
+	<center><img src="{{ STATIC_URL }}images/Nuevo Usuario.png" width="350" height="250" /></center>
+</div>
+
 {% endblock splash_adentro %}
 
 {% block wrapper %}
@@ -8,18 +12,16 @@
 {% endblock wrapper %}
 
 {% block unacolumna %}
-<div id="prim">
+<center><div id="prim">
 	<form id='formulario' method='post' action=''>{% csrf_token %}
 		<table>{{formulario}}</table>
-		<p><input type='submit' value='Registrar'/></p>
+		<center><p><input type='submit' value='Registrar'/></p></center>
 	</form>
-</div>
+</div></center>
 {% endblock unacolumna %}
 
 {% block doscolumna %}
-<div id="seg">
-	<img src="{{ STATIC_URL }}images/Nuevo Usuario.gif" width="190" height="150" />
-</div>
+
 {% endblock doscolumna %}
 
 {% block trescolumna %}
