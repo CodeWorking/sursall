@@ -18,18 +18,18 @@
 
 {% block doscolumna %}
 {% if formulario %}
-<form id= 'formulario' method = 'post' action= ''>{% csrf_token %}
-<table>
-	
-	{{ formulario }}
-	
-	
-</table>
-
-	<input type = 'submit' value = 'Enviar' />
+<form id= 'formulario' method = 'post' action= ''>
+	{% csrf_token %}
+	<table>
+		{{ formulario }}
+	</table>
+	<center>
+	<input type = 'submit' value = 'Enviar' /></center>
 </form>
 {% else %}
-<p>{{ mensaje }}</p>
+<p>
+	{{ mensaje }}
+</p>
 {% endif %}
 {% endblock doscolumna %}
 
@@ -53,4 +53,15 @@
 {% endblock marca%}
 
 {% block menu%}
+	<div id="menu-wrapper">
+		<ul id="menu">
+			<li>
+				<a href="/"><span>Inicio</span></a>
+			</li>
+		</ul>
+		<script type="text/javascript">
+			$('#menu').dropotron();
+
+		</script>
+	</div>
 {% endblock menu%}

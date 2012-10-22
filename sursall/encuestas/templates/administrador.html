@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block splash_adentro %}
+{% endblock splash_adentro %}
+
+
+{% block wrapper %}
+<p>
+	Bienvenido {{ user.persona.nombre|upper }} {{ user.persona.apellido|upper}}
+</p>
+{% endblock wrapper %}
+
+{% block unacolumna %}
+<div id="column1">
+	<p><img src="{{ STATIC_URL }}images/Admin.png" width="300" height="200" alt="" />
+	</p>
+</div>
+{% endblock unacolumna %}
+
+{% block doscolumna %}
+<div id="column2">
+	<p>
+		Nombre :  {{ user.persona.nombre }}
+	</p>
+	<p>
+		Apellido :  {{ user.persona.apellido }}
+	</p>
+	<p>
+		Perfil :  Psicologo
+	</p>
+	<p>
+		Usuario :  {{ user.persona.usuario }}
+	</p>
+	<p>
+		Han Presentado :   {{ prueba.id_prueba}}  Encuestas el dia de hoy
+	</p>
+</div>
+{% endblock doscolumna %}
+
+{% block trescolumna %}
+<div id="column3">
+	<center>
+		<p>
+			Administracion VocacionalSoft
+		</p><br/>
+		<p><a  href="/admin"><img src="{{ STATIC_URL }}images/Ingreso_Admin.png" width="200" height="100" alt="" />
+		</p></a>
+	</center>
+</div>
+{% endblock trescolumna %}
+
+{% block contenidouno %}
+{% endblock contenidouno %}
+
+{% block contenidodos %}
+
+{% endblock contenidodos %}
+
+{% block titulo %} <title>VocacionalSoft</title>
+{% endblock titulo %}
+
+{% block titulopag %} <h1>VocacionalSoft</h1>
+{% endblock titulopag %}
+
+{% block marca%}
+{% endblock marca%}
+
+{% block menu%}
+	<div id="menu-wrapper">
+		<ul id="menu">
+			<li>
+				<a href="/"><span>Inicio</span></a>
+			</li>
+			<li>
+				<a href="/contacto"><span>Contactenos</span></a>
+			</li>
+			<li>
+				<a href="/"><span>Cerrar Sesion</span></a>
+			</li>
+		</ul>
+		<script type="text/javascript">
+			$('#menu').dropotron();
+
+		</script>
+	</div>
+{% endblock menu%} 

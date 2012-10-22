@@ -24,17 +24,23 @@
 	<div class="post">
 		<table >
 			<tr>
-				<td rowspan="3" style="width: 410px"><img src="{{ STATIC_URL }}images/itc1.png" width="300" height="200" /></td>
+				<td rowspan="3" style="width: 410px"><img src="{{ STATIC_URL }}images/itc.png" width="250" height="200" /></td>
 			</tr>
 			<tr>
-				<td style="width: 120px" align="center">
+				<td style="width: 400px" align="center">
 				<p>
-					<form id='formulario' method='post' action=''>{% csrf_token %}
+					<form id='formulario' method='post' action=''>
+						{% csrf_token %}
 						<table>
 							{{ formulario }}
 						</table>
+						<br/>
 						<p>
-							<input type='submit' value='Entrar'/>
+							<center>
+								<input type='submit' value='Entrar'/>
+							</center>
+							<br />
+							{{ mensaje}}
 						</p>
 					</form>
 				</p></td>
@@ -48,40 +54,37 @@
 	</div>
 </div>
 <p>
-</div>
-</div>
-</div>
-{% endblock contenidouno %}
+	</div>
+	</div>
+	</div>
+	{% endblock contenidouno %}
 
-{% block contenidodos %}
+	{% block contenidodos %}
 
-{% endblock contenidodos %}
+	{% endblock contenidodos %}
 
-{% block titulo %} <title>VocacionalSoft</title>
-{% endblock titulo %}
+	{% block titulo %} <title>VocacionalSoft</title>
+	{% endblock titulo %}
 
-{% block titulopag %} <h1>VocacionalSoft</h1>
-{% endblock titulopag %}
+	{% block titulopag %} <h1>VocacionalSoft</h1>
+	{% endblock titulopag %}
 
-{% block marca%}
-{% endblock marca%}
+	{% block marca%}
+	{% endblock marca%}
 
-{% block menu%}
-<div id="menu-wrapper">
-	<ul id="menu">
-		<li>
-			<a href=""><span>Inicio</span></a>
-		</li>
-		<li>
-			<a href="nuevousuario"><span>VocacionalSOft</span></a>
-		</li>
-		<li>
-			<a href="contacto"><span>Contactenos</span></a>
-		</li>
-	</ul>
-	<script type="text/javascript">
-		$('#menu').dropotron();
+	{% block menu%}
+	<div id="menu-wrapper">
+		<ul id="menu">
+			<li>
+				<a href=""><span>Inicio</span></a>
+			</li>
+			<li>
+				<a href="contacto"><span>Contactenos</span></a>
+			</li>
+		</ul>
+		<script type="text/javascript">
+			$('#menu').dropotron();
 
-	</script>
-</div>
-{% endblock menu%}
+		</script>
+	</div>
+	{% endblock menu%}

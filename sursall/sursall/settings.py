@@ -156,3 +156,4 @@ EMAIL_HOST_PASSWORD = 'dianita0318'
 EMAIL_PORT = '587'
 
 LOGIN_URL = "/"
+AVAILABLE_ENCODINGS = ('ascii','utf-8','latin-1')

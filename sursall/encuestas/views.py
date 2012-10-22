@@ -12,56 +12,50 @@ from encuestas.forms import ContactoForm
 from encuestas import models
 from django.contrib.auth.decorators import login_required
 
+def logoutuser(request):
+    logout(request)
+    return HttpResponseRedirect('/') 
 
 @login_required
 def bienvenido(request):
+    
     try:
         persona = request.user.persona
     except:
         # TODO: error para cuando el user no tiene persona
         return render_to_response('bienvenido.html', {}, context_instance=RequestContext(request))
-
-    
     if persona.tipo_usuario == 0:
-        pass
+        return HttpResponseRedirect('administrador')  
     else:
         pass 
     return render_to_response('bienvenido.html', {}, context_instance=RequestContext(request))
 
+def administrador(request):
+    return render_to_response('administrador.html', {}, context_instance=RequestContext(request))
+
+@login_required
 def base(request):
     
     return render_to_response('base.html', {}, context_instance=RequestContext(request))
 
-def nuevousuario(request):
-    if request.method == 'POST':
-        formulario = UserCreationForm(request.POST)
-        if formulario.is_valid:
-            formulario.save()
-            return HttpResponseRedirect('/')
-    else:
-        formulario = UserCreationForm()
-    return render_to_response('nuevousuario.html', {'formulario':formulario}, context_instance=RequestContext(request))
-
-
 def ingresar(request):
-    #if not request.user.is_anonymous():
-        #return HttpResponseRedirect('/ingresar')
     if request.method == 'POST':
         formulario = AuthenticationForm(request.POST)
-        if formulario.is_valid():
+        if formulario.is_valid:
             usuario = request.POST['username']
             clave = request.POST['password']
             acceso = authenticate(username=usuario, password=clave)
             if acceso is not None:
                 if acceso.is_active:
                     login(request, acceso)
-                    return render_to_response('bienvenido.html', {}, context_instance=RequestContext(request))
-
-                    return HttpResponseRedirect('/bienvenido')
+                    return HttpResponseRedirect('bienvenido')
                 else:
-                    return render_to_response('noactivo.html', context_instance=RequestContext(request))
+                    formulario = AuthenticationForm()
+                    return render_to_response('ingresar.html', {'mensaje':" El usuario digitado no se encuetra activo, Por favor contactese con el administrador ", 'formulario':formulario}, context_instance=RequestContext(request))
+                    
             else:
-                return render_to_response('nousuario.html', context_instance=RequestContext(request))
+                    formulario = AuthenticationForm()
+                    return render_to_response('ingresar.html', {'mensaje':" La combinacion de usuario y password no es correcta intente de nuevo ", 'formulario':formulario}, context_instance=RequestContext(request))
     else:
         formulario = AuthenticationForm()
     return render_to_response('ingresar.html', {'formulario':formulario}, context_instance=RequestContext(request))
@@ -70,21 +64,20 @@ def contacto(request):
     if request.method == 'POST':
         formulario = ContactoForm(request.POST)
         if formulario.is_valid():
-            titulo = 'Mensaje desde Diego'
+            titulo = 'Mensaje desde Vocacionalsoft'
             contenido = formulario.cleaned_data ['mensaje'] + "\n"
             contenido += 'Comunicarse a:' + formulario.cleaned_data ['correo']
             correo = EmailMessage(titulo, contenido, to=['alejandrorodriguezperalta@gmail.com'])
             correo.send()
-            return render_to_response('Contactenos.html', {'mensaje':"Se ha enviado satisfactoriamente sus solicitudes"}, context_instance=RequestContext(request))
-    
+            return render_to_response('Contactenos.html', {'mensaje':" Se ha enviado satisfactoriamente sus solicitudes "}, context_instance=RequestContext(request))
     else:
-         formulario = ContactoForm()
+        formulario = ContactoForm()
     return render_to_response('Contactenos.html', {'formulario':formulario}, context_instance=RequestContext(request))
-                
- 
 
+@login_required 
 def prueba(request, id_prueba):
     models.Prueba.objects.get(id=id_prueba)
+    
 
 
 
