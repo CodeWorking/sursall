@@ -32,4 +32,21 @@
 {% endblock marca%}
 
 {% block menu%}
+	<div id="menu-wrapper">
+		<ul id="menu">
+			<li>
+				<a href="/DevContacto"><span>Inicio</span></a>
+			</li>
+			<li>
+				<a href="/contacto"><span>Contactenos</span></a>
+			</li>
+			<li>
+				<a href="/logoutuser"><span>Cerrar Sesion</span></a>
+			</li>
+		</ul>		
+		<script type="text/javascript">
+			$('#menu').dropotron();
+
+		</script>
+	</div>
 {% endblock menu%}

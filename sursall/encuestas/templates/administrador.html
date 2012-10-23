@@ -32,7 +32,7 @@
 		Usuario :  {{ user.persona.usuario }}
 	</p>
 	<p>
-		Han Presentado :   {{ prueba.id_prueba}}  Encuestas el dia de hoy
+		Han Presentado :   {{ Name}}  Encuestas 	
 	</p>
 </div>
 {% endblock doscolumna %}
@@ -69,13 +69,16 @@
 	<div id="menu-wrapper">
 		<ul id="menu">
 			<li>
-				<a href="/"><span>Inicio</span></a>
-			</li>
-			<li>
 				<a href="/contacto"><span>Contactenos</span></a>
 			</li>
 			<li>
-				<a href="/"><span>Cerrar Sesion</span></a>
+				<a href="/admin/auth/user/"><span>Gestion Usuarios</span></a>
+			</li>
+			<li>
+				<a href="/admin/encuestas/prueba/"><span>Gestion Pruebas</span></a>
+			</li>			
+			<li>
+				<a href="/logoutuser"><span>Cerrar Sesion</span></a>
 			</li>
 		</ul>
 		<script type="text/javascript">

@@ -11,7 +11,22 @@ from django.contrib.auth.models import User
 from encuestas.forms import ContactoForm
 from encuestas import models
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
+
+def DevContacto(request):
+    print request.user.id
+    if(request.user.is_authenticated):
+        if(request.user.id == None):
+            return HttpResponseRedirect('/')
+        else:
+            persona = request.user.persona
+            if (persona. tipo_usuario == 0):
+                return render_to_response('administrador.html', {}, context_instance=RequestContext(request))
+            else:
+                return HttpResponseRedirect('/prueba')               
+    
+@login_required
 def logoutuser(request):
     logout(request)
     return HttpResponseRedirect('/') 
@@ -23,15 +38,20 @@ def bienvenido(request):
         persona = request.user.persona
     except:
         # TODO: error para cuando el user no tiene persona
-        return render_to_response('bienvenido.html', {}, context_instance=RequestContext(request))
+        return render_to_response('prueba', {}, context_instance=RequestContext(request))
     if persona.tipo_usuario == 0:
         return HttpResponseRedirect('administrador')  
     else:
-        pass 
-    return render_to_response('bienvenido.html', {}, context_instance=RequestContext(request))
+        return HttpResponseRedirect('prueba')  
+
+@login_required 
+def prueba(request, id_prueba):
+    models.Prueba.objects.get(id=id_prueba)
+    return render_to_response('bienvenido.html', context_instance=RequestContext(request))    
 
 def administrador(request):
-    return render_to_response('administrador.html', {}, context_instance=RequestContext(request))
+    Name = models.PruebaContestada.objects.count()
+    return render_to_response('administrador.html', {'Name':Name}, context_instance=RequestContext(request))
 
 @login_required
 def base(request):
@@ -39,26 +59,34 @@ def base(request):
     return render_to_response('base.html', {}, context_instance=RequestContext(request))
 
 def ingresar(request):
-    if request.method == 'POST':
-        formulario = AuthenticationForm(request.POST)
-        if formulario.is_valid:
-            usuario = request.POST['username']
-            clave = request.POST['password']
-            acceso = authenticate(username=usuario, password=clave)
-            if acceso is not None:
-                if acceso.is_active:
-                    login(request, acceso)
-                    return HttpResponseRedirect('bienvenido')
-                else:
-                    formulario = AuthenticationForm()
-                    return render_to_response('ingresar.html', {'mensaje':" El usuario digitado no se encuetra activo, Por favor contactese con el administrador ", 'formulario':formulario}, context_instance=RequestContext(request))
-                    
+    if(request.user.is_authenticated):
+        if(request.user.id == None):    
+            if request.method == 'POST':
+                formulario = AuthenticationForm(request.POST)
+                if formulario.is_valid:
+                    usuario = request.POST['username']
+                    clave = request.POST['password']
+                    acceso = authenticate(username=usuario, password=clave)
+                    if acceso is not None:
+                        if acceso.is_active:
+                            login(request, acceso)
+                            return HttpResponseRedirect('bienvenido')
+                        else:
+                            formulario = AuthenticationForm()
+                            return render_to_response('ingresar.html', {'mensaje':" El usuario digitado no se encuetra activo, Por favor contactese con el administrador ", 'formulario':formulario}, context_instance=RequestContext(request))
+                    else:
+                            formulario = AuthenticationForm()
+                            return render_to_response('ingresar.html', {'mensaje':" La combinacion de usuario y password no es correcta intente de nuevo ", 'formulario':formulario}, context_instance=RequestContext(request))
             else:
-                    formulario = AuthenticationForm()
-                    return render_to_response('ingresar.html', {'mensaje':" La combinacion de usuario y password no es correcta intente de nuevo ", 'formulario':formulario}, context_instance=RequestContext(request))
-    else:
-        formulario = AuthenticationForm()
-    return render_to_response('ingresar.html', {'formulario':formulario}, context_instance=RequestContext(request))
+                formulario = AuthenticationForm()
+            return render_to_response('ingresar.html', {'formulario':formulario}, context_instance=RequestContext(request))
+        else:
+            persona = request.user.persona
+            if (persona. tipo_usuario == 0):
+                return render_to_response('administrador.html', {}, context_instance=RequestContext(request))
+            else:
+                return HttpResponseRedirect('prueba')             
+            
 
 def contacto(request):
     if request.method == 'POST':
@@ -74,14 +102,13 @@ def contacto(request):
         formulario = ContactoForm()
     return render_to_response('Contactenos.html', {'formulario':formulario}, context_instance=RequestContext(request))
 
-@login_required 
-def prueba(request, id_prueba):
-    models.Prueba.objects.get(id=id_prueba)
+
+    
     
 
 
 
 
-
+    
 
 
