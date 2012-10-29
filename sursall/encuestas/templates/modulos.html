@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block splash_adentro %}
+{% endblock splash_adentro %}
+
+{% block wrapper %} <p>Bienvenido</p>
+{% endblock wrapper %}
+
+{% block unacolumna %}
+
+{% endblock unacolumna %}
+
+{% block doscolumna %}
+{% endblock doscolumna %}
+
+{% block trescolumna %}
+{% endblock trescolumna %}
+
+{% block contenidouno %}
+{% endblock contenidouno %}
+
+{% block contenidodos %}
+
+{% for dato in datos %}
+	<li>
+		<a href='{% url encuestas.views.detalle_modulo dato.id %}'>{{dato.nombre}}</a>
+	</li>
+	{% empty %}
+
+{% endblock contenidodos %}
+
+{% block titulo %} <title>VocacionalSoft</title>
+{% endblock titulo %}
+
+{% block titulopag %} <h1>VocacionalSoft</h1>
+{% endblock titulopag %}
+
+{% block marca%}
+{% endblock marca%}
+
+{% block menu%}
+{% endblock menu%}

@@ -1,3 +1,4 @@
+from encuestas.models import Seccion, Modulo, Prueba
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
@@ -103,12 +104,26 @@ def contacto(request):
     return render_to_response('Contactenos.html', {'formulario':formulario}, context_instance=RequestContext(request))
 
 
-    
-    
+def lista_pruebas(request):
+    pruebas = Prueba.objects.all()
+    return render_to_response('pruebas.html',{'datos':pruebas}, context_instance=RequestContext(request))
 
+def detalle_prueba(request, id_prueba):
+    dato = get_object_or_404(Prueba, pk=id_prueba)
+    return render_to_response('prueba.html',{'prueba':dato}, context_instance=RequestContext(request))
 
+def lista_modulos(request):
+    modulos = Modulo.objects.all()
+    return render_to_response('modulos.html',{'datos':modulos}, context_instance=RequestContext(request))
 
+def detalle_modulo(request, id_modulo):
+    dato = get_object_or_404(Modulo, pk=id_modulo)
+    return render_to_response('modulo.html',{'modulo':dato}, context_instance=RequestContext(request))
 
-    
+def lista_secciones(request):
+    secciones = Seccion.objects.all()
+    return render_to_response('secciones.html',{'datos':secciones}, context_instance=RequestContext(request))
 
-
+def detalle_seccion(request, id_seccion):
+    dato = get_object_or_404(Seccion, pk=id_seccion)
+    return render_to_response('seccion.html',{'seccion':dato}, context_instance=RequestContext(request))

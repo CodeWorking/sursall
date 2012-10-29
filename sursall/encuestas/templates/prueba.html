@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block splash_adentro %}
+{% endblock splash_adentro %}
+
+{% block wrapper %} <h1>{{prueba.nombre|title}}</h1>
+{% endblock wrapper %}
+
+{% block unacolumna %}
+
+{% endblock unacolumna %}
+
+{% block doscolumna %}
+{% endblock doscolumna %}
+
+{% block trescolumna %}
+{% endblock trescolumna %}
+
+{% block contenidouno %}
+
+<h2> {{ prueba.nombre }}</h2>
+
+
+{% endblock contenidouno %}
+
+{% block contenidodos %}
+{% endblock contenidodos %}
+
+{% block titulo %} <title>VocacionalSoft</title>
+{% endblock titulo %}
+
+{% block titulopag %} <h1>VocacionalSoft</h1>
+{% endblock titulopag %}
+
+{% block marca%}
+{% endblock marca%}
+
+{% block menu%}
+	<div id="menu-wrapper">
+		<ul id="menu">
+			<li>
+				<a href="/DevContacto"><span>Inicio</span></a>
+			</li>
+			<li>
+				<a href="/contacto"><span>Contactenos</span></a>
+			</li>
+			<li>
+				<a href="/logoutuser"><span>Cerrar Sesion</span></a>
+			</li>
+		</ul>		
+		<script type="text/javascript">
+			$('#menu').dropotron();
+
+		</script>
+	</div>
+{% endblock menu%}

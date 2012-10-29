@@ -27,6 +27,7 @@ class Prueba(models.Model):
 
 class Modulo(models.Model):  
     nombre = models.CharField(max_length=50)
+    descripcion = models.TextField()
     prueba = models.ForeignKey(Prueba)
     
     def __unicode__(self):
