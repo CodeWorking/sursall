@@ -23,9 +23,12 @@
 
 {% for dato in datos %}
 	<li>
-		<a href='{% url encuestas.views.detalle_modulo dato.id %}'>{{dato.nombre}}</a>
+		<a href='{% url encuestas.views.detalle_modulo dato.id %}'>  
+			<p>jhj</p>
+			</a>
 	</li>
 	{% empty %}
+{% endfor %}
 
 {% endblock contenidodos %}
 

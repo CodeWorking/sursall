@@ -34,7 +34,9 @@ def logoutuser(request):
 def estudiante(request):
     PruebaD = models.Prueba.objects.get(id='1')
     PruebaDs = models.Prueba.objects.get(id='2')   
-    return render_to_response('estudiante.html',{'PruebaD':PruebaD, 'PruebaDs':PruebaDs}, context_instance=RequestContext(request))
+    #return render_to_response('estudiante.html',{'PruebaD':PruebaD, 'PruebaDs':PruebaDs}, context_instance=RequestContext(request))
+    if request.method == 'POST':
+        return HttpResponseRedirect('/admin') 
           
 
 
