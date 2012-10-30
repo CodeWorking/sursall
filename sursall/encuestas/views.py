@@ -1,4 +1,3 @@
-from encuestas.models import Seccion, Modulo, Prueba
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
@@ -16,39 +15,34 @@ from django.contrib.auth import logout
 
 
 def DevContacto(request):
-    print request.user.id
     if(request.user.is_authenticated):
         if(request.user.id == None):
             return HttpResponseRedirect('/')
         else:
             persona = request.user.persona
             if (persona. tipo_usuario == 0):
-                return render_to_response('administrador.html', {}, context_instance=RequestContext(request))
+                return HttpResponseRedirect('/administrador') 
             else:
-                return HttpResponseRedirect('/prueba')               
+                return HttpResponseRedirect('/estudiante')               
     
 @login_required
 def logoutuser(request):
     logout(request)
     return HttpResponseRedirect('/') 
 
-@login_required
-def bienvenido(request):
-    
-    try:
-        persona = request.user.persona
-    except:
-        # TODO: error para cuando el user no tiene persona
-        return render_to_response('prueba', {}, context_instance=RequestContext(request))
-    if persona.tipo_usuario == 0:
-        return HttpResponseRedirect('administrador')  
-    else:
-        return HttpResponseRedirect('prueba')  
+@login_required 
+def estudiante(request):
+    PruebaD = models.Prueba.objects.get(id='1')
+    PruebaDs = models.Prueba.objects.get(id='2')   
+    return render_to_response('estudiante.html',{'PruebaD':PruebaD, 'PruebaDs':PruebaDs}, context_instance=RequestContext(request))
+          
+
 
 @login_required 
-def prueba(request, id_prueba):
-    models.Prueba.objects.get(id=id_prueba)
-    return render_to_response('bienvenido.html', context_instance=RequestContext(request))    
+def prueba(request):
+    print models.Prueba.objects.get(id='1')
+    #print models.Prueba.nombre    
+    return render_to_response('estudiante.html', context_instance=RequestContext(request))    
 
 def administrador(request):
     Name = models.PruebaContestada.objects.count()
@@ -56,7 +50,6 @@ def administrador(request):
 
 @login_required
 def base(request):
-    
     return render_to_response('base.html', {}, context_instance=RequestContext(request))
 
 def ingresar(request):
@@ -71,7 +64,11 @@ def ingresar(request):
                     if acceso is not None:
                         if acceso.is_active:
                             login(request, acceso)
-                            return HttpResponseRedirect('bienvenido')
+                            persona = request.user.persona
+                            if (persona. tipo_usuario == 0):
+                                return HttpResponseRedirect('administrador')
+                            else:
+                                return HttpResponseRedirect('estudiante')  
                         else:
                             formulario = AuthenticationForm()
                             return render_to_response('ingresar.html', {'mensaje':" El usuario digitado no se encuetra activo, Por favor contactese con el administrador ", 'formulario':formulario}, context_instance=RequestContext(request))
@@ -84,9 +81,9 @@ def ingresar(request):
         else:
             persona = request.user.persona
             if (persona. tipo_usuario == 0):
-                return render_to_response('administrador.html', {}, context_instance=RequestContext(request))
+                return HttpResponseRedirect('administrador')
             else:
-                return HttpResponseRedirect('prueba')             
+                return HttpResponseRedirect('estudiante')  
             
 
 def contacto(request):
@@ -102,28 +99,3 @@ def contacto(request):
     else:
         formulario = ContactoForm()
     return render_to_response('Contactenos.html', {'formulario':formulario}, context_instance=RequestContext(request))
-
-
-def lista_pruebas(request):
-    pruebas = Prueba.objects.all()
-    return render_to_response('pruebas.html',{'datos':pruebas}, context_instance=RequestContext(request))
-
-def detalle_prueba(request, id_prueba):
-    dato = get_object_or_404(Prueba, pk=id_prueba)
-    return render_to_response('prueba.html',{'prueba':dato}, context_instance=RequestContext(request))
-
-def lista_modulos(request):
-    modulos = Modulo.objects.all()
-    return render_to_response('modulos.html',{'datos':modulos}, context_instance=RequestContext(request))
-
-def detalle_modulo(request, id_modulo):
-    dato = get_object_or_404(Modulo, pk=id_modulo)
-    return render_to_response('modulo.html',{'modulo':dato}, context_instance=RequestContext(request))
-
-def lista_secciones(request):
-    secciones = Seccion.objects.all()
-    return render_to_response('secciones.html',{'datos':secciones}, context_instance=RequestContext(request))
-
-def detalle_seccion(request, id_seccion):
-    dato = get_object_or_404(Seccion, pk=id_seccion)
-    return render_to_response('seccion.html',{'seccion':dato}, context_instance=RequestContext(request))

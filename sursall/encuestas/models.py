@@ -1,3 +1,4 @@
+#encoding:utf-8
 from django.db import models
 
 CHOICES_TIPO_PREGUNTA = ((0,"Una pregunta"),(1, "Segunda Pregunta"))
@@ -19,7 +20,7 @@ class Persona(models.Model):
 
 class Prueba(models.Model):
     nombre = models.CharField(max_length=50)
-    
+        
     def __unicode__(self):
         return "%s" % (self.nombre)
 
@@ -27,7 +28,6 @@ class Prueba(models.Model):
 
 class Modulo(models.Model):  
     nombre = models.CharField(max_length=50)
-    descripcion = models.TextField()
     prueba = models.ForeignKey(Prueba)
     
     def __unicode__(self):
