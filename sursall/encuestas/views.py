@@ -9,10 +9,10 @@ from django.core.mail import EmailMessage
 from models import Contacto, Comentario
 from django.contrib.auth.models import User
 from encuestas.forms import ContactoForm
+from encuestas.forms import PreguntaForm
 from encuestas import models
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-
 
 def DevContacto(request):
     if(request.user.is_authenticated):
@@ -32,20 +32,44 @@ def logoutuser(request):
 
 @login_required 
 def estudiante(request):
-    PruebaD = models.Prueba.objects.get(id='1')
-    PruebaDs = models.Prueba.objects.get(id='2')   
-    #return render_to_response('estudiante.html',{'PruebaD':PruebaD, 'PruebaDs':PruebaDs}, context_instance=RequestContext(request))
-    if request.method == 'POST':
-        return HttpResponseRedirect('/admin') 
+    pruebas = models.Prueba.objects.all()    
+    return render_to_response('estudiante.html', {'pruebas':pruebas}, context_instance=RequestContext(request))
           
-
+@login_required 
+def prueba(request, id_prueba):
+    prueba = models.Prueba.objects.get(id=id_prueba)
+    #print models.Prueba.nombre    
+    return render_to_response('prueba.html', {'prueba':prueba}, context_instance=RequestContext(request))
+    
+@login_required 
+def modulo(request, id_modulo):
+    modulo = models.Modulo.objects.get(id=id_modulo)
+    #print models.Prueba.nombre    
+    return render_to_response('modulo.html', {'modulo':modulo}, context_instance=RequestContext(request))
 
 @login_required 
-def prueba(request):
-    print models.Prueba.objects.get(id='1')
-    #print models.Prueba.nombre    
-    return render_to_response('estudiante.html', context_instance=RequestContext(request))    
+def seccion(request, id_seccion):
+    if request.method == 'POST':
+        formulario = ContactoForm(request.POST)
+        return HttpResponseRedirect('/contestar_pregunta/') 
+    else:
+        formulario = ContactoForm()
+    seccion = models.Seccion.objects.get(id=id_seccion)
+    return render_to_response('seccion.html', {'seccion':seccion}, context_instance=RequestContext(request))
 
+@login_required 
+def pregunta(request, id_pregunta):
+    print "sada"
+    pregunta = models.Pregunta.objects.get(id=id_pregunta)
+    return render_to_response('pregunta.html', {'pregunta':pregunta}, context_instance=RequestContext(request))
+
+@login_required 
+def respuesta(request, id_respuesta):
+    respuesta = models.Respuesta.objects.get(id=id_respuesta)
+    #print models.Prueba.nombre    
+    return render_to_response('pregunta.html', {'respuesta':respuesta}, context_instance=RequestContext(request))
+
+@login_required 
 def administrador(request):
     Name = models.PruebaContestada.objects.count()
     return render_to_response('administrador.html', {'Name':Name}, context_instance=RequestContext(request))
@@ -87,7 +111,6 @@ def ingresar(request):
             else:
                 return HttpResponseRedirect('estudiante')  
             
-
 def contacto(request):
     if request.method == 'POST':
         formulario = ContactoForm(request.POST)

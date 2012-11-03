@@ -1,29 +1,44 @@
 {% extends "base.html" %}
 
 {% block splash_adentro %}
+
 {% endblock splash_adentro %}
 
-{% block wrapper %} <h1>{{seccion.nombre|title}}</h1>
+{% block wrapper %}
+<p>
+	{{ seccion.nombre }}
+</p>
 {% endblock wrapper %}
 
 {% block unacolumna %}
-
 {% endblock unacolumna %}
 
 {% block doscolumna %}
+
 {% endblock doscolumna %}
 
 {% block trescolumna %}
 {% endblock trescolumna %}
 
 {% block contenidouno %}
-
-<h2> {{ seccion.nombre }}</h2>
-<p> {{ seccion.descripcion}} </p>
-
+<div id="page">
+	<div class="post">
+		<center>
+			<h2 class="title">INSTRUCCIONES</h2>
+		</center><br />
+		<p>
+			{{ seccion.instruccion }}
+		</p>
+	</div>
+</div>
 {% endblock contenidouno %}
 
 {% block contenidodos %}
+<form id= 'formulario' method = 'post' action= ''>
+	{% csrf_token %}
+	<center>
+	<input type = 'submit' value = 'Iniciar' /></center>
+</form>
 {% endblock contenidodos %}
 
 {% block titulo %} <title>VocacionalSoft</title>
@@ -36,4 +51,23 @@
 {% endblock marca%}
 
 {% block menu%}
-{% endblock menu%}
+<div id="menu-wrapper">
+	<ul id="menu">
+		<li>
+			<p>
+				<a href= "/contestar_modulo/{{ seccion.modulo.id}}/">
+			</p><span>Inicio</span></a>
+		</li>
+		<li>
+			<a href="/contacto"><span>Contactenos</span></a>
+		</li>
+		<li>
+			<a href="/logoutuser"><span>Cerrar Sesion</span></a>
+		</li>
+	</ul>
+	<script type="text/javascript">
+		$('#menu').dropotron();
+
+	</script>
+</div>
+{% endblock menu%} 

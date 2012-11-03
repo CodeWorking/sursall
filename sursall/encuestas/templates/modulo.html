@@ -1,25 +1,45 @@
 {% extends "base.html" %}
 
 {% block splash_adentro %}
+
 {% endblock splash_adentro %}
 
-{% block wrapper %}  <h1>{{modulo.nombre|title}}</h1>
+{% block wrapper %}
+<p>
+	{{ modulo.nombre }}
+</p>
 {% endblock wrapper %}
 
 {% block unacolumna %}
-
+<center>
+	<div id="Col1">
+		<p><img src="{{ STATIC_URL }}images/Eleccion.png" width="300" height="200"/>
+		</p>
+	</div>
+</center>
 {% endblock unacolumna %}
 
 {% block doscolumna %}
+<div id="Col2">
+	<div class="post">
+		<center>
+			<h2 class="title">SECCIONES DISPONIBLES EN {{ modulo.nombre }} </h2>
+			{% for seccion in modulo.seccion_set.all %}
+			<center>
+				<p>
+					<h3><a href= "/contestar_seccion/{{ seccion.id }}/">{{ seccion.nombre }}</a></h3>
+				</p>
+			</center>
+			{% endfor %}
+			</p>
+	</div>
+</div>
 {% endblock doscolumna %}
 
 {% block trescolumna %}
 {% endblock trescolumna %}
 
 {% block contenidouno %}
-
-<h2> {{ modulo.nombre }}</h2>
-<p> {{ modelo.descripcion}} </p>
 
 {% endblock contenidouno %}
 
@@ -29,11 +49,30 @@
 {% block titulo %} <title>VocacionalSoft</title>
 {% endblock titulo %}
 
-{% block titulopag %} <h1>{{modulo.nombre|title}}</h1>
+{% block titulopag %} <h1>VocacionalSoft</h1>
 {% endblock titulopag %}
 
 {% block marca%}
 {% endblock marca%}
 
 {% block menu%}
+<div id="menu-wrapper">
+	<ul id="menu">
+		<li>
+			<p>
+				<a href= "/contestar_prueba/{{ modulo.prueba.id}}/">
+			</p><span>Inicio</span></a>
+		</li>
+		<li>
+			<a href="/contacto"><span>Contactenos</span></a>
+		</li>
+		<li>
+			<a href="/logoutuser"><span>Cerrar Sesion</span></a>
+		</li>
+	</ul>
+	<script type="text/javascript">
+		$('#menu').dropotron();
+
+	</script>
+</div>
 {% endblock menu%}

@@ -3,50 +3,40 @@
 {% block splash_adentro %}
 {% endblock splash_adentro %}
 
-{% block wrapper %} <p>Bienvenido {{ user.persona.nombre|upper }} {{ user.persona.apellido|upper}}</p>
+{% block wrapper %}
+<p>
+	Bienvenido
+</p>
 {% endblock wrapper %}
 
 {% block unacolumna %}
 <div id="column1">
-	<p><img src="{{ STATIC_URL }}images/encuestas.png" width="300" height="200" alt="" />
-	</p>
+	<center>
+		<h1>
+		<p>
+			{{ user.persona.nombre|upper }} {{ user.persona.apellido|upper}}
+		</p></h1>
+		<img src="{{ STATIC_URL }}images/encuestas.png" width="250" height="200" alt="" />
+	</center>
 </div>
 {% endblock unacolumna %}
 
 {% block doscolumna %}
-<div id="column2">
+<center>
+	<h1>
 	<p>
-		Nombre :  {{ user.persona.nombre }}
-	</p>
+		ELIJA LA PRUEBA A CONTESTAR
+	</p></h1>
+	{% for prueba in pruebas %}
 	<p>
-		Apellido :  {{ user.persona.apellido }}
+		<a href= "/contestar_prueba/{{ prueba.id }}/">{{ prueba.nombre }}</a>
 	</p>
-	<p>
-		Perfil :  Estudiante
+	{% endfor %}
 	</p>
-	<p>
-		Usuario :  {{ user.persona.usuario }}
-	</p>
-	<p>
-		 	
-	</p>
-</div>
+</center>
 {% endblock doscolumna %}
 
 {% block trescolumna %}
-<p>
-	ELIJA LA PRUEBA A CONTESTAR
-</p>
-	<br />
-	<INPUT TYPE="radio" NAME="reque[0]" VALUE="Uno" onfocus="Intermitencia()" onBlur="pararTimer()" CHECKED > {{ PruebaD }}
-	<br />
-	<br />
-	<INPUT TYPE="radio" NAME="reque[0]" VALUE="Dos" onfocus="Intermitencia()" onBlur="pararTimer()" CHECKED > {{ PruebaDs }}
-	<p>
-	<center>
-		<input type='submit' value='Iniciar'/>
-	</center>
-</p>
 {% endblock trescolumna %}
 
 {% block contenidouno %}
@@ -65,21 +55,21 @@
 {% endblock marca%}
 
 {% block menu%}
-	<div id="menu-wrapper">
-		<ul id="menu">
-			<li>
-				<a href="/DevContacto"><span>Inicio</span></a>
-			</li>
-			<li>
-				<a href="/contacto"><span>Contactenos</span></a>
-			</li>
-			<li>
-				<a href="/logoutuser"><span>Cerrar Sesion</span></a>
-			</li>
-		</ul>		
-		<script type="text/javascript">
-			$('#menu').dropotron();
+<div id="menu-wrapper">
+	<ul id="menu">
+		<li>
+			<a href="/DevContacto"><span>Inicio</span></a>
+		</li>
+		<li>
+			<a href="/contacto"><span>Contactenos</span></a>
+		</li>
+		<li>
+			<a href="/logoutuser"><span>Cerrar Sesion</span></a>
+		</li>
+	</ul>
+	<script type="text/javascript">
+		$('#menu').dropotron();
 
-		</script>
-	</div>
+	</script>
+</div>
 {% endblock menu%}
