@@ -51,7 +51,7 @@ def modulo(request, id_modulo):
 def seccion(request, id_seccion):
     if request.method == 'POST':
         formulario = ContactoForm(request.POST)
-        return HttpResponseRedirect('/contestar_pregunta/') 
+        return HttpResponseRedirect('/contestar_pregunta/1/') 
     else:
         formulario = ContactoForm()
     seccion = models.Seccion.objects.get(id=id_seccion)
