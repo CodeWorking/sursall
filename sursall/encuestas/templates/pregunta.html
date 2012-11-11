@@ -37,7 +37,7 @@
 	<center>
 		<h1>
 		<p>
-			{{ pregunta.orden}}.  {{ pregunta.descripcion_text}}
+			{{ pregunta.orden}}.  {{ pregunta.descripcion_text|safe }}
 		</p></h1>
 		<p>
 			<h3><a href= "/contestar_modulo/{{ modulo.id }}/">{{ modulo.nombre }}</a></h3>
@@ -45,13 +45,16 @@
 	</center>
 </div>
 <div>
-	{% for respuesta in pregunta.respuesta_set.all %}
+	
 	<center>
-		<p>
-			<h3><a href= "/contestar_pregunta/{{ pregunta.id }}">{{ respuesta.descripcion }}</a></h3>
-		</p>
+		<form method = 'post'>{% csrf_token %}
+			<table>
+			{{ pform.as_table }}
+			</table>
+			<input type = 'submit' value = 'Enviar' />
+		</form>
 	</center>
-	{% endfor %}
+	
 </div>
 {% endblock contenidodos %}
 

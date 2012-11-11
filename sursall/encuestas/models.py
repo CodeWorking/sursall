@@ -70,6 +70,11 @@ class Respuesta(models.Model):
     orden = models.IntegerField ()
     puntaje = models.IntegerField()
 
+    @property
+    def orden_letra(self):
+        return chr(ord("A") + self.orden-1) 
+    
+    
     def __unicode__(self):
         return "%s en %s" % (self.orden, self.pregunta)
 

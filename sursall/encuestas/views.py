@@ -59,10 +59,16 @@ def seccion(request, id_seccion):
 
 @login_required 
 def pregunta(request, id_pregunta):
-    print "sada"
     pregunta = models.Pregunta.objects.get(id=id_pregunta)
-    return render_to_response('pregunta.html', {'pregunta':pregunta}, context_instance=RequestContext(request))
-
+    
+    if request.method == 'POST':
+        pform = PreguntaForm(pregunta, request.POST)
+        if pform.is_valid():
+            print pform.cleaned_data["pregunta"].id
+    else:
+        pform = PreguntaForm(pregunta)
+    return render_to_response('pregunta.html', {'pregunta':pregunta, 'pform':pform}, context_instance=RequestContext(request))
+    
 @login_required 
 def respuesta(request, id_respuesta):
     respuesta = models.Respuesta.objects.get(id=id_respuesta)
