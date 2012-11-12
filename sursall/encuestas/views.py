@@ -13,6 +13,9 @@ from encuestas.forms import PreguntaForm
 from encuestas import models
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from encuestas.models import PruebaContestada
+from datetime import datetime
+from django.core import exceptions 
 
 def DevContacto(request):
     if(request.user.is_authenticated):
@@ -51,20 +54,21 @@ def modulo(request, id_modulo):
 def seccion(request, id_seccion):
     if request.method == 'POST':
         formulario = ContactoForm(request.POST)
-        return HttpResponseRedirect('/contestar_pregunta/1/') 
+        seccionac =  models.Seccion.objects.get(id=id_seccion)
+        prs = str(models.Pregunta.objects.get(orden=1, seccion = seccionac.id).id)  
+        return HttpResponseRedirect('/contestar_pregunta/' + prs) 
     else:
         formulario = ContactoForm()
     seccion = models.Seccion.objects.get(id=id_seccion)
     return render_to_response('seccion.html', {'seccion':seccion}, context_instance=RequestContext(request))
-
 @login_required 
-def pregunta(request, id_pregunta):
-    pregunta = models.Pregunta.objects.get(id=id_pregunta)
-    
-    if request.method == 'POST':
+def pregunta(request, id_pregunta):   
+    pregunta = models.Pregunta.objects.get(id=id_pregunta)   
+    if request.method == 'POST':     
         pform = PreguntaForm(pregunta, request.POST)
         if pform.is_valid():
-            print pform.cleaned_data["pregunta"].id
+            #PruebaContestada.objects.create(prueba='PRUEBA BASICA', fecha= datetime.now(), usuario = 'dgo')
+            pform.cleaned_data["pregunta"].id
     else:
         pform = PreguntaForm(pregunta)
     return render_to_response('pregunta.html', {'pregunta':pregunta, 'pform':pform}, context_instance=RequestContext(request))
