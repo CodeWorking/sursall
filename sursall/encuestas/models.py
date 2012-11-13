@@ -80,8 +80,8 @@ class Respuesta(models.Model):
 
 class Seleccion(models.Model):
     respuesta = models.ForeignKey(Respuesta)
+    Pregunta = models.ForeignKey(Pregunta)
     prueba_contestada = models.ForeignKey(PruebaContestada)
 
     def __unicode__(self):
-        return "%s la %s" % (self.respuesta)
-
+        return "%s la %s" % (self.respuesta, self.prueba_contestada)

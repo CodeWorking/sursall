@@ -14,6 +14,7 @@ from encuestas import models
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from encuestas.models import PruebaContestada
+from encuestas.models import Seleccion
 from datetime import datetime
 from django.core import exceptions 
 
@@ -67,8 +68,25 @@ def pregunta(request, id_pregunta):
     if request.method == 'POST':     
         pform = PreguntaForm(pregunta, request.POST)
         if pform.is_valid():
-            #PruebaContestada.objects.create(prueba='PRUEBA BASICA', fecha= datetime.now(), usuario = 'dgo')
-            pform.cleaned_data["pregunta"].id
+            #pform.cleaned_data["pregunta"].id
+            #print models.Respuesta.objects.get(pregunta = pregunta.id)
+            print (models.Seleccion.objects.filter(Pregunta = id_pregunta))
+            if not (models.Seleccion.objects.filter(Pregunta = id_pregunta)) == 'NULL':         
+                itpr = str(pregunta.orden + 1)
+                if  models.Pregunta.objects.filter(id=itpr).get().seccion.id == pregunta.seccion.id:
+                    Seleccion.objects.create(respuesta = (models.Respuesta.objects.get(id=1)), prueba_contestada = (models.PruebaContestada.objects.get(id=1)),Pregunta = (models.Pregunta.objects.get(id=id_pregunta)))
+                    print "ITERO"   
+                    return HttpResponseRedirect('/contestar_pregunta/' + itpr)  
+                else:
+                    while not models.Pregunta.objects.filter(id=itpr).get().seccion.id == pregunta.seccion.id:
+                        citpr = int(itpr) + 1
+                        itpr = str(citpr)
+                    else: 
+                        return HttpResponseRedirect('/contestar_pregunta/' + itpr)
+            else:
+                print "NO TA"
+            #id_pregunta_nc = models.Pregunta.objects.get().filter(id=id_Seleccion)
+            #print models.Pregunta.objects.get(id=id_pregunta_nc)  
     else:
         pform = PreguntaForm(pregunta)
     return render_to_response('pregunta.html', {'pregunta':pregunta, 'pform':pform}, context_instance=RequestContext(request))
