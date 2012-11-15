@@ -3,16 +3,19 @@ from models import *
 from encuestas.models import Persona
 
 
+class SeleccionAdmin(admin.ModelAdmin):
+    list_display = ('respuesta', 'pregunta')
+    search_fields = ('pregunta',)
+    list_filter = ('pregunta__seccion',)
+
+
+
 admin.site.register(Persona)
 admin.site.register(Prueba)
 admin.site.register(Modulo)
 admin.site.register(Seccion)
 admin.site.register(Pregunta)
-admin.site.register(PruebaContestada)
+admin.site.register(SeccionContestada)
 admin.site.register(Respuesta)
-admin.site.register(Seleccion)
+admin.site.register(Seleccion, SeleccionAdmin)
 
-
-class AuthorAdmin(admin.ModelAdmin):
-    list_display = ('first_name')
-    search_fields = ('first_name', 'last_name')

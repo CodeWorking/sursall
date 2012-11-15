@@ -1,5 +1,6 @@
 #encoding:utf-8
 from django.db import models
+import datetime
 
 CHOICES_TIPO_PREGUNTA = ((0,"Seleccion Multiple"),(1, "Pregunta Abiertas"),(1, "Pregunta Reflexivas"),(1, "Pregunta Cerradas"),(1, "Pregunta Verdadero  - Falso"),(1, "Pregunta Abiertas"))
 CHOICES_TIPO_USUARIO = ((0,"Psicologo"),(1, "Estudiante"))
@@ -42,6 +43,13 @@ class Seccion(models.Model):
     instruccion = models.TextField()
     modulo = models.ForeignKey(Modulo)
     
+    def preguntas_sin_contestar(self, persona):
+        r = self.seccioncontestada_set.filter(usuario=persona)
+        if r.count() > 0:
+            return r[0].preguntas_a_contestar().count()
+        else:
+            return self.pregunta_set.count()
+    
     def __unicode__(self):
         return "%s en %s" % (self.nombre, self.modulo)
 
@@ -56,13 +64,6 @@ class Pregunta(models.Model):
     def __unicode__(self):
         return "%s la %s" % (self.orden, self.seccion)
 
-class PruebaContestada(models.Model):
-    prueba = models.ForeignKey(Prueba)
-    fecha = models.DateTimeField()
-    usuario = models.ForeignKey(Persona)
-
-    def __unicode__(self):
-        return "%s la %s" % (self.prueba, self.fecha)
 
 class Respuesta(models.Model):
     pregunta = models.ForeignKey(Pregunta)
@@ -78,10 +79,30 @@ class Respuesta(models.Model):
     def __unicode__(self):
         return "%s en %s" % (self.orden, self.pregunta)
 
-class Seleccion(models.Model):
-    respuesta = models.ForeignKey(Respuesta)
-    Pregunta = models.ForeignKey(Pregunta)
-    prueba_contestada = models.ForeignKey(PruebaContestada)
+
+class SeccionContestada(models.Model):
+    seccion = models.ForeignKey(Seccion)
+    fecha_inicio = models.DateTimeField(default=datetime.datetime.now)
+    fecha_final = models.DateTimeField(blank=True, null=True)
+    usuario = models.ForeignKey(Persona)
+
+    class Meta:
+        unique_together = (("seccion", "usuario"))
+
+    def preguntas_a_contestar(self):
+        return self.seccion.pregunta_set.exclude(seleccion__seccion_contestada__usuario=self.usuario).order_by("orden")
 
     def __unicode__(self):
-        return "%s la %s" % (self.respuesta, self.prueba_contestada)
+        return "%s la %s" % (self.seccion, self.fecha_inicio)
+
+
+class Seleccion(models.Model):
+    respuesta = models.ForeignKey(Respuesta)
+    pregunta = models.ForeignKey(Pregunta)
+    seccion_contestada = models.ForeignKey(SeccionContestada)
+
+    class Meta:
+        unique_together = (("pregunta", "seccion_contestada"))
+
+    def __unicode__(self):
+        return "%s la %s" % (self.respuesta, self.seccion_contestada)

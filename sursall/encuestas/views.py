@@ -13,7 +13,7 @@ from encuestas.forms import PreguntaForm
 from encuestas import models
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-from encuestas.models import PruebaContestada
+from encuestas.models import SeccionContestada
 from encuestas.models import Seleccion
 from datetime import datetime
 from django.core import exceptions 
@@ -47,20 +47,28 @@ def prueba(request, id_prueba):
     
 @login_required 
 def modulo(request, id_modulo):
-    modulo = models.Modulo.objects.get(id=id_modulo)
+    secciones = []
+    persona = request.user.persona
+    for s in models.Seccion.objects.filter(modulo__id=id_modulo):
+        print s.preguntas_sin_contestar(persona)
+        if s.preguntas_sin_contestar(persona) > 0:
+            secciones.append(s)
     #print models.Prueba.nombre    
-    return render_to_response('modulo.html', {'modulo':modulo}, context_instance=RequestContext(request))
+    return render_to_response('modulo.html', {'secciones':secciones}, context_instance=RequestContext(request))
 
 @login_required 
 def seccion(request, id_seccion):
-    if request.method == 'POST':
-        formulario = ContactoForm(request.POST)
-        seccionac =  models.Seccion.objects.get(id=id_seccion)
-        prs = str(models.Pregunta.objects.get(orden=1, seccion = seccionac.id).id)  
-        return HttpResponseRedirect('/contestar_pregunta/' + prs) 
-    else:
-        formulario = ContactoForm()
     seccion = models.Seccion.objects.get(id=id_seccion)
+    if request.method == 'POST':
+        print request.user.persona
+        sec_cont = models.SeccionContestada.objects.get_or_create(seccion=seccion, usuario=request.user.persona)[0]
+        request.session["seccion_contestada"] = sec_cont
+        try:
+            prs = sec_cont.preguntas_a_contestar()[0].id
+            return HttpResponseRedirect('/contestar_pregunta/%s/' % (prs)) 
+        except:
+            return HttpResponseRedirect('/contestar_pregunta/') 
+   
     return render_to_response('seccion.html', {'seccion':seccion}, context_instance=RequestContext(request))
 @login_required 
 def pregunta(request, id_pregunta):   
@@ -68,25 +76,18 @@ def pregunta(request, id_pregunta):
     if request.method == 'POST':     
         pform = PreguntaForm(pregunta, request.POST)
         if pform.is_valid():
-            #pform.cleaned_data["pregunta"].id
+            resp = int(pform.cleaned_data["respuestas"])
+            models.Seleccion.objects.create(respuesta=models.Respuesta.objects.get(id=resp),
+                                            pregunta=models.Pregunta.objects.get(id=id_pregunta),
+                                            seccion_contestada=request.session["seccion_contestada"])
+            
+        try:
+            prs = request.session["seccion_contestada"].preguntas_a_contestar()[0].di
+            return HttpResponseRedirect('/contestar_pregunta/%s/' % (prs)) 
+        except:
+            return HttpResponseRedirect('/contestar_pregunta/') 
             #print models.Respuesta.objects.get(pregunta = pregunta.id)
-            print (models.Seleccion.objects.filter(Pregunta = id_pregunta))
-            if not (models.Seleccion.objects.filter(Pregunta = id_pregunta)) == 'NULL':         
-                itpr = str(pregunta.orden + 1)
-                if  models.Pregunta.objects.filter(id=itpr).get().seccion.id == pregunta.seccion.id:
-                    Seleccion.objects.create(respuesta = (models.Respuesta.objects.get(id=1)), prueba_contestada = (models.PruebaContestada.objects.get(id=1)),Pregunta = (models.Pregunta.objects.get(id=id_pregunta)))
-                    print "ITERO"   
-                    return HttpResponseRedirect('/contestar_pregunta/' + itpr)  
-                else:
-                    while not models.Pregunta.objects.filter(id=itpr).get().seccion.id == pregunta.seccion.id:
-                        citpr = int(itpr) + 1
-                        itpr = str(citpr)
-                    else: 
-                        return HttpResponseRedirect('/contestar_pregunta/' + itpr)
-            else:
-                print "NO TA"
-            #id_pregunta_nc = models.Pregunta.objects.get().filter(id=id_Seleccion)
-            #print models.Pregunta.objects.get(id=id_pregunta_nc)  
+            #return HttpResponseRedirect('/contestar_pregunta/' + itpr)
     else:
         pform = PreguntaForm(pregunta)
     return render_to_response('pregunta.html', {'pregunta':pregunta, 'pform':pform}, context_instance=RequestContext(request))
@@ -99,7 +100,7 @@ def respuesta(request, id_respuesta):
 
 @login_required 
 def administrador(request):
-    Name = models.PruebaContestada.objects.count()
+    Name = models.SeccionContestada.objects.count()
     return render_to_response('administrador.html', {'Name':Name}, context_instance=RequestContext(request))
 
 @login_required

@@ -24,7 +24,7 @@
 	<div class="post">
 		<center>
 			<h2 class="title">SECCIONES DISPONIBLES EN {{ modulo.nombre }} </h2>
-			{% for seccion in modulo.seccion_set.all %}
+			{% for seccion in secciones %}
 			<center>
 				<p>
 					<h3><a href= "/contestar_seccion/{{ seccion.id }}/">{{ seccion.nombre }}</a></h3>
