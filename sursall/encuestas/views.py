@@ -41,35 +41,41 @@ def estudiante(request):
           
 @login_required 
 def prueba(request, id_prueba):
+    persona = request.user.persona
     prueba = models.Prueba.objects.get(id=id_prueba)
-    #print models.Prueba.nombre    
-    return render_to_response('prueba.html', {'prueba':prueba}, context_instance=RequestContext(request))
+    modulos = []
+    #ssc = models.SeccionContestada.objects.filter(fecha_final = None)
+    #print models.Modulo.ssc()
+    for m in models.Modulo.objects.filter(prueba__id=id_prueba):
+        if m.secciones_por_contestar(persona) > 0: 
+            modulos.append(m)
+    return render_to_response('prueba.html', {'modulos':modulos, 'prueba':prueba}, context_instance=RequestContext(request))
     
 @login_required 
 def modulo(request, id_modulo):
+    modulo = models.Modulo.objects.get(id=id_modulo)
     secciones = []
     persona = request.user.persona
     for s in models.Seccion.objects.filter(modulo__id=id_modulo):
-        print s.preguntas_sin_contestar(persona)
         if s.preguntas_sin_contestar(persona) > 0:
             secciones.append(s)
     #print models.Prueba.nombre    
-    return render_to_response('modulo.html', {'secciones':secciones}, context_instance=RequestContext(request))
+    return render_to_response('modulo.html', {'secciones':secciones, 'modulo':modulo}, context_instance=RequestContext(request))
 
 @login_required 
 def seccion(request, id_seccion):
     seccion = models.Seccion.objects.get(id=id_seccion)
     if request.method == 'POST':
-        print request.user.persona
         sec_cont = models.SeccionContestada.objects.get_or_create(seccion=seccion, usuario=request.user.persona)[0]
         request.session["seccion_contestada"] = sec_cont
         try:
             prs = sec_cont.preguntas_a_contestar()[0].id
             return HttpResponseRedirect('/contestar_pregunta/%s/' % (prs)) 
         except:
-            return HttpResponseRedirect('/contestar_pregunta/') 
+            pass
    
     return render_to_response('seccion.html', {'seccion':seccion}, context_instance=RequestContext(request))
+
 @login_required 
 def pregunta(request, id_pregunta):   
     pregunta = models.Pregunta.objects.get(id=id_pregunta)   
@@ -82,12 +88,16 @@ def pregunta(request, id_pregunta):
                                             seccion_contestada=request.session["seccion_contestada"])
             
         try:
-            prs = request.session["seccion_contestada"].preguntas_a_contestar()[0].di
+            prs = request.session["seccion_contestada"].preguntas_a_contestar()[0].id
             return HttpResponseRedirect('/contestar_pregunta/%s/' % (prs)) 
         except:
-            return HttpResponseRedirect('/contestar_pregunta/') 
-            #print models.Respuesta.objects.get(pregunta = pregunta.id)
-            #return HttpResponseRedirect('/contestar_pregunta/' + itpr)
+            print pregunta.seccion.id
+            SeccionCont = SeccionContestada.objects.get(seccion=pregunta.seccion.id)
+            SeccionCont.fecha_final= datetime.now()
+            SeccionCont.save()
+            m =  pregunta.seccion.modulo.id
+            return HttpResponseRedirect('/contestar_modulo/%s/' % (m))  
+            
     else:
         pform = PreguntaForm(pregunta)
     return render_to_response('pregunta.html', {'pregunta':pregunta, 'pform':pform}, context_instance=RequestContext(request))
@@ -100,12 +110,22 @@ def respuesta(request, id_respuesta):
 
 @login_required 
 def administrador(request):
-    Name = models.SeccionContestada.objects.count()
-    return render_to_response('administrador.html', {'Name':Name}, context_instance=RequestContext(request))
+    persona = request.user.persona
+    sec_enc = models.Persona.objects.filter(seccioncontestada__usuario=persona)
+    usu_enc = sec_enc.count()
+    return render_to_response('administrador.html', {'usu_enc':usu_enc}, context_instance=RequestContext(request))
 
 @login_required
 def base(request):
     return render_to_response('base.html', {}, context_instance=RequestContext(request))
+
+@login_required
+def resultados(request):
+    usuario = []
+    for s in models.Persona.objects.filter():
+        usuario.append(s)
+ 
+    return render_to_response('adm.html', {'usuario':usuario}, context_instance=RequestContext(request))
 
 def ingresar(request):
     if(request.user.is_authenticated):

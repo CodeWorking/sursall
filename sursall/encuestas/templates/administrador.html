@@ -13,7 +13,7 @@
 {% block unacolumna %}
 <div id="column1">
 		<img src="{{ STATIC_URL }}images/Admin.png" width="300" height="200" alt="" />
-</div>
+</div>	
 {% endblock unacolumna %}
 
 {% block doscolumna %}
@@ -28,10 +28,10 @@
 		Perfil :  Psicologo
 	</p>
 	<p>
-		Usuario :  {{ user.persona.usuario }}
+		Usuario :  {{ user.persona.usuario }} 
 	</p>
 	<p>
-		Han Presentado :   {{ Name}}  Encuestas 	
+		{{ usu_enc }} Usuarios han usado VocacionalSoft.
 	</p>
 </div>
 {% endblock doscolumna %}
@@ -39,9 +39,9 @@
 {% block trescolumna %}
 <div id="column3">
 	<center>
-		<p>
+		<h1><p>
 			Administracion VocacionalSoft
-		</p><br/>
+		</p></h1><br/>
 		<p><a  href="/admin/encuestas"><img src="{{ STATIC_URL }}images/Ingreso_Admin.png" width="200" height="100" alt="" />
 		</p></a>
 	</center>
@@ -75,7 +75,10 @@
 			</li>
 			<li>
 				<a href="/admin/encuestas/prueba/"><span>Gestion Pruebas</span></a>
-			</li>			
+			</li>
+			<li>
+				<a href="/adm/"><span>Ver Resultados</span></a>
+			</li>	
 			<li>
 				<a href="/logoutuser"><span>Cerrar Sesion</span></a>
 			</li>

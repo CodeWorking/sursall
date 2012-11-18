@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block splash_adentro %}
+{% endblock splash_adentro %}
+
+{% block wrapper %}
+{% endblock wrapper %}
+
+
+{% block unacolumna %}
+{% endblock unacolumna %}
+{% block doscolumna %}
+
+{% endblock doscolumna %}
+
+{% block trescolumna %}
+{% endblock trescolumna %}
+
+{% block contenidouno %}
+{% for usuarios in usuario %}
+<p>
+	<center><h3><a href= "/contestar_usuario/{{ usuario.id }}/"> {{ usuarios.nombre }} </a></h3></center>
+</p>
+</center>
+{% endfor %}
+{% endblock contenidouno %}
+
+{% block contenidodos %}
+{% endblock contenidodos %}
+
+{% block titulo %} <title>VocacionalSoft</title>
+{% endblock titulo %}
+
+{% block titulopag %} <h1>VocacionalSoft</h1>
+{% endblock titulopag %}
+
+{% block marca%}
+{% endblock marca%}
+
+{% block menu%}
+	<div id="menu-wrapper">
+		<ul id="menu">
+			<li>
+				<a href="/DevContacto"><span>Inicio</span></a>
+			</li>
+			<li>
+				<a href="/logoutuser"><span>Cerrar Sesion</span></a>
+			</li>
+		</ul>
+		<script type="text/javascript">
+			$('#menu').dropotron();
+		</script>
+	</div>
+{% endblock menu%}

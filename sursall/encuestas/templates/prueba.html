@@ -24,14 +24,15 @@
 {% endblock unacolumna %}
 
 {% block doscolumna %}
-{% for modulo in prueba.modulo_set.all %}
 <center>
 <h1>
 <p>
-	MODULOS EN {{ modulo.prueba }} 
+	MODULOS EN {{ prueba.nombre }} 
 </p></h1>	
+{% for modulo in modulos %}
+
 <p>
-	<h3><a href= "/contestar_modulo/{{ modulo.id }}/">{{ modulo.nombre }}</a></h3>
+	<center><h3><a href= "/contestar_modulo/{{ modulo.id }}/">{{ modulo.nombre }}</a></h3></center>
 </p>
 </center>
 {% endfor %}

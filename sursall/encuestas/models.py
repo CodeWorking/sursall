@@ -22,7 +22,7 @@ class Persona(models.Model):
 class Prueba(models.Model):
     nombre = models.CharField(max_length=50)
     descripcion = models.CharField(max_length=200)
-        
+            
     def __unicode__(self):
         return "%s" % (self.nombre)
 
@@ -33,6 +33,11 @@ class Modulo(models.Model):
     descripcion = models.CharField(max_length=200)
     prueba = models.ForeignKey(Prueba)
     
+    def secciones_por_contestar(self, persona):
+        mr = self.seccion_set.exclude(seccioncontestada__usuario=persona, seccioncontestada__fecha_final__isnull=False)
+        return mr.count()
+
+       
     def __unicode__(self):
         return "%s en %s" % (self.nombre, self.prueba)
 
@@ -48,10 +53,11 @@ class Seccion(models.Model):
         if r.count() > 0:
             return r[0].preguntas_a_contestar().count()
         else:
-            return self.pregunta_set.count()
-    
+            return self.pregunta_set.count()  
+  
     def __unicode__(self):
         return "%s en %s" % (self.nombre, self.modulo)
+
 
 class Pregunta(models.Model):
     orden = models.IntegerField()
@@ -60,6 +66,9 @@ class Pregunta(models.Model):
     tiempo = models.IntegerField(null=True, blank=True)
     tipo_pregunta = models.IntegerField(choices=CHOICES_TIPO_PREGUNTA)
     seccion = models.ForeignKey(Seccion)
+    
+    class Meta:
+        unique_together = (("orden", "seccion"))
 
     def __unicode__(self):
         return "%s la %s" % (self.orden, self.seccion)
@@ -75,6 +84,8 @@ class Respuesta(models.Model):
     def orden_letra(self):
         return chr(ord("A") + self.orden-1) 
     
+    class Meta:
+        unique_together = (("orden", "pregunta"))
     
     def __unicode__(self):
         return "%s en %s" % (self.orden, self.pregunta)
