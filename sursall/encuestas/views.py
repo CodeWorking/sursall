@@ -111,8 +111,8 @@ def respuesta(request, id_respuesta):
 
 @login_required 
 def administrador(request):
-    persona = request.user.persona
-    sec_enc = models.Persona.objects.filter(seccioncontestada__usuario=persona)
+    sec_enc = models.Persona.objects.filter(seccioncontestada__usuario__isnull=False)
+    print sec_enc
     usu_enc = sec_enc.count()
     return render_to_response('administrador.html', {'usu_enc':usu_enc}, context_instance=RequestContext(request))
 
