@@ -16,7 +16,8 @@ from django.contrib.auth import logout
 from encuestas.models import SeccionContestada
 from encuestas.models import Seleccion
 from datetime import datetime
-from django.core import exceptions 
+from django.core import exceptions
+
 
 def DevContacto(request):
     if(request.user.is_authenticated):
@@ -122,10 +123,24 @@ def base(request):
 @login_required
 def resultados(request):
     usuario = []
-    for s in models.Persona.objects.filter():
-        usuario.append(s)
- 
+    for s in models.Persona.objects.filter():     
+        usuario.append(s) 
     return render_to_response('adm.html', {'usuario':usuario}, context_instance=RequestContext(request))
+
+@login_required
+def seccion_contestada_resultados(request, id_sec_cont):
+    secrs = SeccionContestada.objects.get(id=id_sec_cont)
+    selrs= []   
+    for selrp in Seleccion.objects.filter(seccion_contestada_id=id_sec_cont):
+        selrs.append(selrp) 
+    return render_to_response('adm_gst.html', {'secrs':secrs, 'selrs':selrs}, context_instance=RequestContext(request))
+
+@login_required
+def gestionresultados(request, id_usuario):
+    secciones = [] 
+    for sec in SeccionContestada.objects.filter(usuario=id_usuario):     
+        secciones.append(sec)
+    return render_to_response('seccion_contestada.html', {'secciones':secciones}, context_instance=RequestContext(request))
 
 def ingresar(request):
     if(request.user.is_authenticated):

@@ -16,5 +16,7 @@ urlpatterns = patterns('encuestas.views',
                        url(r'^contestar_pregunta/(?P<id_pregunta>\d+)/$', 'pregunta'),
                        url(r'^contestar_respuesta/(?P<id_respuesta>\d+)/$', 'respuesta'),
                        url(r'^ver_resultados/$', 'resultados'),
+                       url(r'^resultados/(?P<id_usuario>\d+)/$', 'gestionresultados'),
+                       url(r'^seccion_contestada_resultados/(?P<id_sec_cont>\d+)/$', 'seccion_contestada_resultados'),
                        url(r'^estudiante/$', 'estudiante'),
                        )        

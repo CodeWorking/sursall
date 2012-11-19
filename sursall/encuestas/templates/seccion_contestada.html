@@ -27,10 +27,10 @@
 {% endblock contenidouno %}
 
 {% block contenidodos %}
-<center><h2> Seleccione un Usuario para ver las respuestas brindadas:</h2></center><br />
-{% for usuarios in usuario %}
+<center><h3> Seleccion la Seccion Respondida:</h3></center><br />
+{% for seccionr in secciones %}
 <p>
-	<center><h3><a href= "/resultados/{{ usuarios.id }}/"> {{ usuarios.nombre }}  {{ usuarios.apellido}}  </a></h3></center>
+	<center><h3><a href= "/seccion_contestada_resultados/{{ seccionr.id }}/"> {{ seccionr.seccion.nombre }}  </a></h3></center>
 </p>
 {% endfor %}
 {% endblock contenidodos %}
