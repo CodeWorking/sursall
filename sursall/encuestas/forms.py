@@ -17,3 +17,6 @@ class PreguntaForm(forms.Form):
         for rs in pregunta.respuesta_set.all():
             respuestas.append((rs.id,"%s. %s" %(rs.orden_letra, rs.descripcion)))
         self.fields['respuestas'].choices = respuestas
+
+class GestionResultados(forms.Form):
+    pass

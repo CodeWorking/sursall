@@ -92,13 +92,11 @@ def pregunta(request, id_pregunta):
             prs = request.session["seccion_contestada"].preguntas_a_contestar()[0].id
             return HttpResponseRedirect('/contestar_pregunta/%s/' % (prs)) 
         except:
-            print pregunta.seccion.id
             SeccionCont = SeccionContestada.objects.get(seccion=pregunta.seccion.id)
             SeccionCont.fecha_final= datetime.now()
             SeccionCont.save()
             m =  pregunta.seccion.modulo.id
-            return HttpResponseRedirect('/contestar_modulo/%s/' % (m))  
-            
+            return HttpResponseRedirect('/contestar_modulo/%s/' % (m))              
     else:
         pform = PreguntaForm(pregunta)
     return render_to_response('pregunta.html', {'pregunta':pregunta, 'pform':pform}, context_instance=RequestContext(request))
@@ -106,7 +104,6 @@ def pregunta(request, id_pregunta):
 @login_required 
 def respuesta(request, id_respuesta):
     respuesta = models.Respuesta.objects.get(id=id_respuesta)
-    #print models.Prueba.nombre    
     return render_to_response('pregunta.html', {'respuesta':respuesta}, context_instance=RequestContext(request))
 
 @login_required 
@@ -123,12 +120,17 @@ def base(request):
 @login_required
 def resultados(request):
     usuario = []
-    for s in models.Persona.objects.filter():     
-        usuario.append(s) 
+    for m in models.Modulo.objects.filter():
+        for s in models.Persona.objects.filter():
+            if m.secciones_contestadas(s)>0:
+                #usr = SeccionContestada.objects.get(usuario=s)
+                usuario.append(s) 
     return render_to_response('adm.html', {'usuario':usuario}, context_instance=RequestContext(request))
 
 @login_required
 def seccion_contestada_resultados(request, id_sec_cont):
+    if request.method == 'POST':
+        print ""
     secrs = SeccionContestada.objects.get(id=id_sec_cont)
     selrs= []   
     for selrp in Seleccion.objects.filter(seccion_contestada_id=id_sec_cont):
@@ -174,7 +176,7 @@ def ingresar(request):
                 return HttpResponseRedirect('administrador')
             else:
                 return HttpResponseRedirect('estudiante')  
-            
+                        
 def contacto(request):
     if request.method == 'POST':
         formulario = ContactoForm(request.POST)

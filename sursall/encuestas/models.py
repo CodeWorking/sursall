@@ -36,8 +36,11 @@ class Modulo(models.Model):
     def secciones_por_contestar(self, persona):
         mr = self.seccion_set.exclude(seccioncontestada__usuario=persona, seccioncontestada__fecha_final__isnull=False)
         return mr.count()
-
-       
+    
+    def secciones_contestadas(self, persona):
+        sc = self.seccion_set.filter(seccioncontestada__usuario=persona, seccioncontestada__fecha_final__isnull=True)
+        return sc.count()
+         
     def __unicode__(self):
         return "%s en %s" % (self.nombre, self.prueba)
 
@@ -99,10 +102,10 @@ class SeccionContestada(models.Model):
 
     class Meta:
         unique_together = (("seccion", "usuario"))
-
+            
     def preguntas_a_contestar(self):
         return self.seccion.pregunta_set.exclude(seleccion__seccion_contestada__usuario=self.usuario).order_by("orden")
-
+   
     def __unicode__(self):
         return "%s la %s" % (self.seccion, self.fecha_inicio)
 

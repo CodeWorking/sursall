@@ -43,6 +43,11 @@
 		{% endfor %}
 	</table>
 	<br />
+	<form id= 'formulario' method = 'post' action= ''>
+		{% csrf_token %}
+		<td align="center">OBSERVACIONES: </td> <input  type = "Text" /> 
+		<input type = 'submit' value = 'Gestionar' />
+	</form>
 </center>
 {% endblock contenidodos %}
 
