@@ -479,6 +479,11 @@ img.aligncenter {
 	float: right;
 	width: 300px;
 }
+#three-column #column5 {
+	float: right;
+	width: 600px;
+}
+
 
 #d-column #Col1 {
 	float: left;

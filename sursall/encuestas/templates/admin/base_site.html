@@ -1,0 +1,60 @@
+{% extends "base.html" %} <html lang="{{ LANGUAGE_CODE|default:"es-CO" }}"></html>
+{% block splash_adentro %}
+{% endblock splash_adentro %}
+
+{% block wrapper %}
+<p>
+	Administracion
+</p>
+{% endblock wrapper %}
+
+{% block unacolumna %}
+<div id="column1">
+	<img src="{{ STATIC_URL }}images/Admin_1.png" width="250" height="300" alt=""/>
+</div>
+{% endblock unacolumna %}
+
+{% block doscolumna %}
+<div id="column5">
+		<p>
+			{% block content %}
+			{% block object-tools %}{% endblock %}
+			{% endblock %}
+		</p>
+</div>
+{% endblock doscolumna %}
+
+{% block trescolumna %}
+{% endblock trescolumna %}
+
+{% block contenidouno %}
+{% endblock contenidouno %}
+
+{% block contenidodos %}
+{% endblock contenidodos %}
+
+{% block titulo %} <title>VocacionalSoft</title>
+{% endblock titulo %}
+
+{% block titulopag %} <h1>VocacionalSoft</h1>
+{% endblock titulopag %}
+
+{% block marca%}
+{% endblock marca%}
+
+{% block menu%}
+<div id="menu-wrapper">
+	<ul id="menu">
+		<li>
+			<a href="/DevContacto"><span>Inicio</span></a>
+		</li>
+		<li>
+			<a href="/logoutuser"><span>Cerrar Sesion</span></a>
+		</li>
+	</ul>
+	<script type="text/javascript">
+		$('#menu').dropotron();
+
+	</script>
+</div>
+{% endblock menu%} 
