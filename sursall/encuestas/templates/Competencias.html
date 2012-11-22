@@ -1,5 +1,65 @@
 {% extends "base.html" %}
 
+{% block extra_head %}
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script type="text/javascript">
+	
+	$(function () {
+		var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                type: 'line',
+                marginRight: 130,
+                marginBottom: 25
+            },
+            title: {
+                text: 'Monthly Average Temperature',
+                x: -20 //center
+            },
+            subtitle: {
+                text: 'Source: WorldClimate.com',
+                x: -20
+            },
+            xAxis: {
+                categories: [{% for cptencias in Compt %}'{{ cptencias.seccion.competencia.nombre }}',{% endfor %}]
+            },
+            yAxis: {
+                title: {
+                    text: 'Temperature (°C)'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                formatter: function() {
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                        this.x +': '+ this.y +'°C';
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -10,
+                y: 100,
+                borderWidth: 0
+            },
+            series: [{
+                name: 'Tokyo',
+                data: [{% for cptencias in Compt %}{{ cptencias.puntaje }},{% endfor %}]
+            }]
+        });
+    });
+	});
+</script>
+{% endblock %}
+
 {% block splash_adentro %}
 {% endblock splash_adentro %}
 
@@ -7,6 +67,17 @@
 {% endblock wrapper %}
 
 {% block unacolumna %}
+{% endblock unacolumna %}
+
+{% block doscolumna %}
+{% endblock doscolumna %}
+
+{% block trescolumna %}
+{% endblock trescolumna %}
+
+
+{% block contenidouno %}
+
 <center>
 	<table width="700" border="1">
 		<tr>
@@ -25,19 +96,11 @@
 		{% endfor %}
 	</table>
 	<br />
-{% endblock unacolumna %}
-
-{% block doscolumna %}
-{% endblock doscolumna %}
-
-{% block trescolumna %}
-{% endblock trescolumna %}
-
-{% block contenidouno %}
 {% endblock contenidouno %}
 
 {% block contenidodos %}
-
+<div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<br />
 {% endblock contenidodos %}
 
 {% block titulo %} <title>VocacionalSoft</title>
