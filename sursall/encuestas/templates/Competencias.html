@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block splash_adentro %}
+{% endblock splash_adentro %}
+
+{% block wrapper %}
+{% endblock wrapper %}
+
+{% block unacolumna %}
+<center>
+	<table width="700" border="1">
+		<tr>
+			<td align="center"><h2>SECCION</h2></td>
+			<td align="center"><h2>COMPETENCIA</h2></td>
+			<td align="center"><h2> DETALLE COMPETENCIA</h2></td>
+			<td align="center"><h2>PUNTAJE</h2></td>
+		</tr>
+		{% for cptencias in Compt %}
+		<tr>
+			<td align="center">{{ cptencias.seccion.nombre }}</td>
+			<td align="center">{{ cptencias.seccion.competencia.nombre }}</td>
+			<td align="center">{{ cptencias.seccion.competencia.descripcion }}</td>
+			<td align="center">{{ cptencias.puntaje }}</td>			
+		</tr>
+		{% endfor %}
+	</table>
+	<br />
+{% endblock unacolumna %}
+
+{% block doscolumna %}
+{% endblock doscolumna %}
+
+{% block trescolumna %}
+{% endblock trescolumna %}
+
+{% block contenidouno %}
+{% endblock contenidouno %}
+
+{% block contenidodos %}
+
+{% endblock contenidodos %}
+
+{% block titulo %} <title>VocacionalSoft</title>
+{% endblock titulo %}
+
+{% block titulopag %} <h1>VocacionalSoft</h1>
+{% endblock titulopag %}
+
+{% block marca%}
+{% endblock marca%}
+
+{% block menu%}
+	<div id="menu-wrapper">
+		<ul id="menu">
+			<li>
+				<a href="/DevContacto"><span>Inicio</span></a>
+			</li>
+		</ul>
+		<script type="text/javascript">
+			$('#menu').dropotron();
+
+		</script>
+	</div>
+{% endblock menu%}

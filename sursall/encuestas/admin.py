@@ -35,4 +35,6 @@ admin.site.register(Pregunta)
 admin.site.register(SeccionContestada)
 admin.site.register(Respuesta, RespuestaAdmin)
 admin.site.register(Seleccion, SeleccionAdmin)
+admin.site.register(competencia)
+admin.site.register(competencia_seleccionada)
 

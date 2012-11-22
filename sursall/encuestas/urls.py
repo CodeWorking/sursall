@@ -19,4 +19,5 @@ urlpatterns = patterns('encuestas.views',
                        url(r'^resultados/(?P<id_usuario>\d+)/$', 'gestionresultados'),
                        url(r'^seccion_contestada_resultados/(?P<id_sec_cont>\d+)/$', 'seccion_contestada_resultados'),
                        url(r'^estudiante/$', 'estudiante'),
+                       url(r'^Competencias/(?P<id_usuario>\d+)/$', 'Competencias'),
                        )        

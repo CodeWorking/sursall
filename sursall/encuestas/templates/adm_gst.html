@@ -30,9 +30,9 @@
 <center>
 	<table width="460" border="1">
 		<tr>
-			<td align="center">PREGUNTA N°</td>
-			<td align="center">RESPUESTA ELEGIDA</td>
-			<td align="center">FECHA FINAL DE RESPUESTA</td>
+			<td align="center"><h2>PREGUNTA N°</h2></td>
+			<td align="center"><h2>RESPUESTA ELEGIDA</h2></td>
+			<td align="center"><h2>FECHA RESPUESTA</h2></td>
 		</tr>
 		{% for sel_rs in selrs %}
 		<tr>
@@ -49,6 +49,7 @@
 		<input type = 'submit' value = 'Gestionar' />
 	</form>
 </center>
+<br />
 {% endblock contenidodos %}
 
 {% block titulo %} <title>VocacionalSoft</title>
@@ -65,6 +66,9 @@
 	<ul id="menu">
 		<li>
 			<a href="/DevContacto"><span>Inicio</span></a>
+		</li>
+		<li>
+			<a href="/Competencias/{{ secrs.usuario_id }}/"><span>Ver Competencias</span></a>
 		</li>
 		<li>
 			<a href="/logoutuser"><span>Cerrar Sesion</span></a>

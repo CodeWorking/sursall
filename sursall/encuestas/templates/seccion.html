@@ -27,7 +27,7 @@
 			<h2 class="title">INSTRUCCIONES</h2>
 		</center><br />
 		<p>
-			{{ seccion.instruccion|safe }}
+			{{ sec.instruccion|safe }}
 		</p>
 	</div>
 </div>
@@ -55,12 +55,12 @@
 	<ul id="menu">
 		<li>
 			<p>
-				<a href= "/contestar_prueba/{{ seccion.modulo.prueba.id}}/">
+				<a href= "/contestar_prueba/{{ seccion.modulo.prueba.id }}/">
 			</p><span>Inicio</span></a>
 		</li>
 		<li>
 			<p>
-				<a href= "/contestar_modulo/{{ seccion.modulo.id}}/">
+				<a href= "/contestar_modulo/{{ seccion.modulo.id }}/">
 			</p><span>Atras</span></a>
 		</li>		
 		<li>

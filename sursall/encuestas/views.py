@@ -65,17 +65,18 @@ def modulo(request, id_modulo):
 
 @login_required 
 def seccion(request, id_seccion):
-    seccion = models.Seccion.objects.get(id=id_seccion)
+    persona = request.user
+    sec = models.Seccion.objects.get(id=id_seccion)
     if request.method == 'POST':
-        sec_cont = models.SeccionContestada.objects.get_or_create(seccion=seccion, usuario=request.user.persona)[0]
+        models.competencia_seleccionada.objects.get_or_create(usuario=persona.persona, seccion=sec, competencia=sec.competencia, puntaje=0)
+        sec_cont = models.SeccionContestada.objects.get_or_create(seccion=sec, usuario=persona.persona)[0]
         request.session["seccion_contestada"] = sec_cont
         try:
             prs = sec_cont.preguntas_a_contestar()[0].id
             return HttpResponseRedirect('/contestar_pregunta/%s/' % (prs)) 
         except:
             pass
-   
-    return render_to_response('seccion.html', {'seccion':seccion}, context_instance=RequestContext(request))
+    return render_to_response('seccion.html', {'sec':sec}, context_instance=RequestContext(request))
 
 @login_required 
 def pregunta(request, id_pregunta):   
@@ -84,10 +85,13 @@ def pregunta(request, id_pregunta):
         pform = PreguntaForm(pregunta, request.POST)
         if pform.is_valid():
             resp = int(pform.cleaned_data["respuestas"])
-            models.Seleccion.objects.create(respuesta=models.Respuesta.objects.get(id=resp),
+            models.Seleccion.objects.get_or_create(respuesta=models.Respuesta.objects.get(id=resp),
                                             pregunta=models.Pregunta.objects.get(id=id_pregunta),
                                             seccion_contestada=request.session["seccion_contestada"])
-            
+            cmu = models.competencia_seleccionada.objects.get(usuario_id=request.user.persona)
+            rpp = models.Respuesta.objects.get(id=resp).puntaje
+            cmu.puntaje = (cmu.puntaje+rpp)
+            cmu.save()            
         try:
             prs = request.session["seccion_contestada"].preguntas_a_contestar()[0].id
             return HttpResponseRedirect('/contestar_pregunta/%s/' % (prs)) 
@@ -103,13 +107,13 @@ def pregunta(request, id_pregunta):
     
 @login_required 
 def respuesta(request, id_respuesta):
+    persona = request.user
     respuesta = models.Respuesta.objects.get(id=id_respuesta)
     return render_to_response('pregunta.html', {'respuesta':respuesta}, context_instance=RequestContext(request))
 
 @login_required 
 def administrador(request):
     sec_enc = models.Persona.objects.filter(seccioncontestada__usuario__isnull=False)
-    print sec_enc
     usu_enc = sec_enc.count()
     return render_to_response('administrador.html', {'usu_enc':usu_enc}, context_instance=RequestContext(request))
 
@@ -118,12 +122,18 @@ def base(request):
     return render_to_response('base.html', {}, context_instance=RequestContext(request))
 
 @login_required
+def Competencias(request, id_usuario):
+    Compt = []   
+    for cmp in models.competencia_seleccionada.objects.filter(usuario=id_usuario):
+        Compt.append(cmp)
+    return render_to_response('Competencias.html', {'Compt':Compt}, context_instance=RequestContext(request))
+
+@login_required
 def resultados(request):
     usuario = []
-    for m in models.Modulo.objects.filter():
-        for s in models.Persona.objects.filter():
-            if m.secciones_contestadas(s)>0:
-                #usr = SeccionContestada.objects.get(usuario=s)
+    for s in models.Persona.objects.filter():
+        for m in models.Modulo.objects.filter():
+            if m.secciones_por_contestar(s)>0:
                 usuario.append(s) 
     return render_to_response('adm.html', {'usuario':usuario}, context_instance=RequestContext(request))
 

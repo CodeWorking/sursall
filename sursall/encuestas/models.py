@@ -34,7 +34,7 @@ class Modulo(models.Model):
     prueba = models.ForeignKey(Prueba)
     
     def secciones_por_contestar(self, persona):
-        mr = self.seccion_set.exclude(seccioncontestada__usuario=persona, seccioncontestada__fecha_final__isnull=False)
+        mr = self.seccion_set.filter(seccioncontestada__usuario=persona, seccioncontestada__fecha_final__isnull=False)
         return mr.count()
     
     def secciones_contestadas(self, persona):
@@ -45,11 +45,23 @@ class Modulo(models.Model):
         return "%s en %s" % (self.nombre, self.prueba)
 
 
+
+class competencia(models.Model):
+    orden = models.IntegerField ()
+    nombre = models.CharField(max_length=30)
+    descripcion = models.CharField(max_length=30)
+
+    class Meta:
+        unique_together = (("orden", "nombre"))
+
+    def __unicode__(self):
+        return "%s la %s" % (self.orden, self.nombre)
     
 class Seccion(models.Model):
     nombre = models.CharField(max_length=30)
     instruccion = models.TextField()
     modulo = models.ForeignKey(Modulo)
+    competencia = models.ForeignKey(competencia)
     
     def preguntas_sin_contestar(self, persona):
         r = self.seccioncontestada_set.filter(usuario=persona)
@@ -60,8 +72,23 @@ class Seccion(models.Model):
   
     def __unicode__(self):
         return "%s en %s" % (self.nombre, self.modulo)
+   
+    
+class competencia_seleccionada(models.Model):
+    usuario = models.ForeignKey(Persona)
+    competencia = models.ForeignKey(competencia)
+    seccion = models.ForeignKey(Seccion)
+    puntaje = models.IntegerField(null=True, blank=True)
+    
+    class Meta:
+        unique_together = (("usuario", "seccion"))
+    
+    def sumar_puntaje(self, puntaje, rppuntaje):
+        return (puntaje+rppuntaje)
 
-
+    def __unicode__(self):
+        return "%s en %s" % (self.usuario, self.seccion)
+    
 class Pregunta(models.Model):
     orden = models.IntegerField()
     descripcion_text = models.TextField()
@@ -108,8 +135,8 @@ class SeccionContestada(models.Model):
    
     def __unicode__(self):
         return "%s la %s" % (self.seccion, self.fecha_inicio)
-
-
+   
+    
 class Seleccion(models.Model):
     respuesta = models.ForeignKey(Respuesta)
     pregunta = models.ForeignKey(Pregunta)
