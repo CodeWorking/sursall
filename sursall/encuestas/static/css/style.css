@@ -8,10 +8,10 @@ Released for free under a Creative Commons Attribution 2.5 License
 body {
 	margin: 0;
 	padding: 0;
-	background: #000000 url(../images/wrapper-bg.jpg) repeat;
-	font-family: 'Arvo', serif;
-	font-size: 14px;
-	color: #CFCFCF;
+	background: url(../images/wrapper-bg.jpg) repeat;
+	font-family:"Comic Sans MS", cursive/*'Arvo', serif*/;
+	font-size: 17px;
+	color: #7FA72C;
 }
 
 h1, h2, h3 {
@@ -24,19 +24,20 @@ h1, h2, h3 {
 }
 
 h1 {
-	font-size: 2em;
+	font-size: 1.7em;
 }
 
 h2 {
-	font-size: 2.4em;
+	font-size: 1.8em;
 }
 
 h3 {
-	font-size: 1.6em;
+	font-size: 1.4em;
 }
 
 p, ul, ol {
-	margin-top: 0;
+	margin-top: 10px;
+	margin-bottom: 10px;
 	line-height: 180%;
 }
 
@@ -45,7 +46,7 @@ ul, ol {
 
 a {
 	text-decoration: none;
-	color: #9C9A9A;
+	color: #7FA72C;
 }
 
 a:hover {
@@ -259,9 +260,9 @@ img.aligncenter {
 /* Page */
 
 #page {
-	width: 900px;
-	margin: 0px auto 20px auto;
-	padding: 30px 40px;
+	width: 750px;
+	margin: 0px auto 10px auto;
+	padding: 10px;
 	background: url(../images/content-wrapper-bg.png) repeat;
 }
 
@@ -279,13 +280,13 @@ img.aligncenter {
 
 .post {
 	clear: both;
-	padding-bottom: 10px;
+	/*padding-bottom: 10px;*/
 	border-bottom: 1px solid #000000;
 }
 
 .post .title {
 	padding-top: 10px;
-	letter-spacing: -4px;
+	/*letter-spacing: -4px;*/
 	'text-transform: lowercase;
 	font-size: 50px;
 	color: #7FA72C;
@@ -460,14 +461,14 @@ img.aligncenter {
 
 #three-column {
 	overflow: hidden;
-	width: 980px;
+	width: 1100px;
 	margin: 20px auto;
 }
 
 #three-column #column1 {
 	float: left;
 	width: 300px;
-	margin-right: 40px;
+	/*margin-right: 40px;*/
 }
 
 #three-column #column2 {
@@ -481,7 +482,7 @@ img.aligncenter {
 }
 #three-column #column5 {
 	float: right;
-	width: 600px;
+	width: 750px;
 }
 
 
@@ -495,7 +496,16 @@ img.aligncenter {
 	width: 450px;
 }
 
-
-
-
+#results {
+	padding:80px;
+	}
+#changelist-form {
+	
+	}
+#result_list{
+	border:#7FA72C;
+}
+.module{
+	letter-spacing:normal;
+}
 

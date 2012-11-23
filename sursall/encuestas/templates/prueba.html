@@ -12,12 +12,13 @@
 {% block unacolumna %}
 <div id="column1">
 <center>
-	<h1>
+	<h3>
 	<p>
 		{{ user.persona.nombre|upper }} {{ user.persona.apellido|upper}}
-	</p></h1>
+	</p></h3>
 	<p>
 		PARA COMPLETAR EL TEST {{ modulo.prueba }} USTED DEBE COMPLETAR LOS SIGUIENTES MODULOS, ELIJA UN MODULO. 
+	
 	</p>
 </center>
 </div>
@@ -25,10 +26,9 @@
 
 {% block doscolumna %}
 <center>
-<h1>
-<p>
-	MODULOS EN {{ prueba.nombre }} 
-</p></h1>	
+<h3>
+	MODULOS EN</h3>	<p>{{ prueba.nombre }}</p> 
+
 {% for modulo in modulos %}
 
 <p>

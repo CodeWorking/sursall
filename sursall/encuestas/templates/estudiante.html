@@ -12,10 +12,10 @@
 {% block unacolumna %}
 <div id="column1">
 	<center>
-		<h1>
+		<h3>
 		<p>
 			{{ user.persona.nombre|upper }} {{ user.persona.apellido|upper}}
-		</p></h1>
+		</p></h3>
 		<img src="{{ STATIC_URL }}images/encuestas.png" width="250" height="200" alt="" />
 	</center>
 </div>
@@ -23,10 +23,10 @@
 
 {% block doscolumna %}
 <center>
-	<h1>
+	<h3>
 	<p>
 		ELIJA LA PRUEBA A CONTESTAR
-	</p></h1>
+	</p></h3>
 	{% for prueba in pruebas %}
 	<p>
 		<a href= "/contestar_prueba/{{ prueba.id }}/">{{ prueba.nombre }}</a>
