@@ -140,7 +140,13 @@ def resultados(request):
 @login_required
 def seccion_contestada_resultados(request, id_sec_cont):
     if request.method == 'POST':
-        print ""
+        ob = request.POST.get('observaciones')
+        seccon = models.SeccionContestada.objects.get(id=id_sec_cont)
+        sec = seccon.seccion.id
+        compts = models.competencia_seleccionada.objects.filter(seccion=sec)
+        cmt =compts.get()
+        cmt.observacion = ob
+        cmt.save()               
     secrs = SeccionContestada.objects.get(id=id_sec_cont)
     selrs= []   
     for selrp in Seleccion.objects.filter(seccion_contestada_id=id_sec_cont):

@@ -62,6 +62,7 @@ class Seccion(models.Model):
     instruccion = models.TextField()
     modulo = models.ForeignKey(Modulo)
     competencia = models.ForeignKey(competencia)
+
     
     def preguntas_sin_contestar(self, persona):
         r = self.seccioncontestada_set.filter(usuario=persona)
@@ -79,6 +80,7 @@ class competencia_seleccionada(models.Model):
     competencia = models.ForeignKey(competencia)
     seccion = models.ForeignKey(Seccion)
     puntaje = models.IntegerField(null=True, blank=True)
+    observacion = models.CharField(null=True, blank=True, max_length=200)
     
     class Meta:
         unique_together = (("usuario", "seccion"))
