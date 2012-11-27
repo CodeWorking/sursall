@@ -34,7 +34,7 @@ class Modulo(models.Model):
     prueba = models.ForeignKey(Prueba)
     
     def secciones_por_contestar(self, persona):
-        mr = self.seccion_set.filter(seccioncontestada__usuario=persona, seccioncontestada__fecha_final__isnull=False)
+        mr = self.seccion_set.exclude(seccioncontestada__usuario=persona, seccioncontestada__fecha_final__isnull=False)
         return mr.count()
     
     def secciones_contestadas(self, persona):

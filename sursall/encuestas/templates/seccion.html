@@ -6,7 +6,7 @@
 
 {% block wrapper %}
 <p>
-	{{ seccion.nombre }}
+	{{ sec.nombre }}
 </p>
 {% endblock wrapper %}
 
@@ -39,6 +39,9 @@
 	<center>
 	<input type = 'submit' value = 'Empezar a contestear' /></center>
 </form>
+
+<br/>
+
 {% endblock contenidodos %}
 
 {% block titulo %} <title>VocacionalSoft</title>
@@ -55,12 +58,12 @@
 	<ul id="menu">
 		<li>
 			<p>
-				<a href= "/contestar_prueba/{{ seccion.modulo.prueba.id }}/">
+				<a href= "/contestar_prueba/{{ sec.modulo.prueba.id }}/">
 			</p><span>Inicio</span></a>
 		</li>
 		<li>
 			<p>
-				<a href= "/contestar_modulo/{{ seccion.modulo.id }}/">
+				<a href= "/contestar_modulo/{{ sec.modulo.id }}/">
 			</p><span>Atras</span></a>
 		</li>		
 		<li>

@@ -60,7 +60,6 @@ def modulo(request, id_modulo):
     for s in models.Seccion.objects.filter(modulo__id=id_modulo):
         if s.preguntas_sin_contestar(persona) > 0:
             secciones.append(s)
-    #print models.Prueba.nombre    
     return render_to_response('modulo.html', {'secciones':secciones, 'modulo':modulo}, context_instance=RequestContext(request))
 
 @login_required 
@@ -68,7 +67,7 @@ def seccion(request, id_seccion):
     persona = request.user
     sec = models.Seccion.objects.get(id=id_seccion)
     if request.method == 'POST':
-        models.competencia_seleccionada.objects.get_or_create(usuario=persona.persona, seccion=sec, competencia=sec.competencia, puntaje=0)
+        models.competencia_seleccionada.objects.get_or_create(usuario=persona.persona,seccion=sec, competencia=sec.competencia, puntaje=0)
         sec_cont = models.SeccionContestada.objects.get_or_create(seccion=sec, usuario=persona.persona)[0]
         request.session["seccion_contestada"] = sec_cont
         try:
@@ -88,7 +87,7 @@ def pregunta(request, id_pregunta):
             models.Seleccion.objects.get_or_create(respuesta=models.Respuesta.objects.get(id=resp),
                                             pregunta=models.Pregunta.objects.get(id=id_pregunta),
                                             seccion_contestada=request.session["seccion_contestada"])
-            cmu = models.competencia_seleccionada.objects.get(usuario_id=request.user.persona)
+            cmu = models.competencia_seleccionada.objects.get(usuario_id=request.user.persona, seccion=pregunta.seccion)
             rpp = models.Respuesta.objects.get(id=resp).puntaje
             cmu.puntaje = (cmu.puntaje+rpp)
             cmu.save()            
